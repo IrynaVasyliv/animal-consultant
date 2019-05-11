@@ -125,7 +125,17 @@
                                                 <div class="comment-text">
                                                     <p>Thank you for your article, I think it can be very useful to volunteers of Animal Shelter.</p>
                                                 </div>
-                                                <div class="comment-footer"><a class="comment-link-reply" href="#">Reply</a></div>
+                                                <div class="comment-footer">
+                                                    <div class="comment-footer">
+                                                        <div class="starcommentrating d-flex justify-content-end flex-row-reverse">
+                                                            <input type="radio" id="star16" name="rating4" value="5" disabled /><label for="star16" title="5 star"></label>
+                                                            <input type="radio" id="star17" name="rating4" value="4" disabled /><label for="star17" title="4 star"></label>
+                                                            <input type="radio" id="star18" name="rating4" value="3" disabled checked/><label for="star18" title="3 star"></label>
+                                                            <input type="radio" id="star19" name="rating4" value="2" disabled /><label for="star19" title="2 star"></label>
+                                                            <input type="radio" id="star20" name="rating4" value="1" disabled /><label for="star20" title="1 star"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </article>
                                     </div>
@@ -142,7 +152,15 @@
                                                 <div class="comment-text">
                                                     <p>Thank you for your article, I think it can be very useful to volunteers of Animal Shelter.</p>
                                                 </div>
-                                                <div class="comment-footer"><a class="comment-link-reply" href="#">Reply</a></div>
+                                                <div class="comment-footer">
+                                                    <div class="starcommentrating d-flex justify-content-end flex-row-reverse">
+                                                        <input type="radio" id="star15" name="rating3" value="5" disabled checked /><label for="star15" title="5 star"></label>
+                                                        <input type="radio" id="star14" name="rating3" value="4" disabled /><label for="star14" title="4 star"></label>
+                                                        <input type="radio" id="star13" name="rating3" value="3" disabled /><label for="star13" title="3 star"></label>
+                                                        <input type="radio" id="star12" name="rating3" value="2" disabled /><label for="star12" title="2 star"></label>
+                                                        <input type="radio" id="star11" name="rating3" value="1" disabled /><label for="star11" title="1 star"></label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </article>
                                     </div>
@@ -150,37 +168,41 @@
                                         <!-- Comment-->
                                         <article class="comment">
                                             <div class="comment-avatar">
-                                                <img src="~/img/theresa-lane-80x80.jpg" alt="" width="80" height="80">
+                                                <img src="~/img/ronald-austin-80x80.jpg" alt="" width="80" height="80">
                                             </div>
                                             <div class="comment-body">
                                                 <div class="comment-header">
-                                                    <p class="comment-title">Theresa Lane</p><span class="comment-time">2 days ago</span>
+                                                    <p class="comment-title">Ronald Austin</p><span class="comment-time">2 days ago</span>
                                                 </div>
                                                 <div class="comment-text">
-                                                    <p>Thank you for your article, I think it can be very useful to volunteers of Animal Shelter.</p>
+                                                    <p>Thank you!</p>
                                                 </div>
-                                                <div class="comment-footer"><a class="comment-link-reply" href="#">Reply</a></div>
+                                                <div class="comment-footer">
+                                                    <div class="starcommentrating d-flex justify-content-end flex-row-reverse">
+                                                        <input type="radio" id="star10" name="rating2" value="5" disabled/><label for="star10" title="5 star"></label>
+                                                        <input type="radio" id="star9" name="rating2" value="4" disabled /><label for="star9" title="4 star"></label>
+                                                        <input type="radio" id="star8" name="rating2" value="3" disabled /><label for="star8" title="3 star"></label>
+                                                        <input type="radio" id="star7" name="rating2" value="2" disabled checked/><label for="star7" title="2 star"></label>
+                                                        <input type="radio" id="star6" name="rating2" value="1" disabled /><label for="star6" title="1 star"></label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </article>
-                                        <div class="comment-group">
-                                            <!-- Comment-->
-                                            <article class="comment">
-                                                <div class="comment-avatar">
-                                                    <img src="~/img/ronald-austin-80x80.jpg" alt="" width="80" height="80">
-                                                </div>
-                                                <div class="comment-body">
-                                                    <div class="comment-header">
-                                                        <p class="comment-title">Ronald Austin</p><span class="comment-time">2 days ago</span>
-                                                    </div>
-                                                    <div class="comment-text">
-                                                        <p>Thank you!</p>
-                                                    </div>
-                                                    <div class="comment-footer"><a class="comment-link-reply" href="#">Reply</a></div>
-                                                </div>
-                                            </article>
-                                        </div>
+                                    </div>
                                         <form class="rd-mailform form-wide" data-form-output="form-output-global" data-form-type="contact" method="post" action="@Url.Action("AddComment", "Home")" novalidate="novalidate">
                                             <div class="range range-sm-bottom spacing-30">
+                                            <div class="cell-xs-12">
+                                                <h5 class="box-item-title">Залиште свій відгук</h5>
+                                                </div>
+                                                <div class="cell-sm-6">
+                                                    <div class="starrating d-flex justify-content-end flex-row-reverse">
+                                                        <input type="radio" id="star5" name="rating" value="5"/><label for="star5" title="5 star"></label>
+                                                        <input type="radio" id="star4" name="rating" value="4"/><label for="star4" title="4 star"></label>
+                                                        <input type="radio" id="star3" name="rating" value="3"/><label for="star3" title="3 star"></label>
+                                                        <input type="radio" id="star2" name="rating" value="2"/><label for="star2" title="2 star"></label>
+                                                        <input type="radio" id="star1" name="rating" value="1"/><label for="star1" title="1 star"></label>
+                                                    </div>
+                                                </div>
                                                 <div class="cell-xs-12">
                                                     <div class="form-group">
                                                         <textarea class="form-control form-control-has-validation" id="comment-message" name="message" data-constraints="@@Required"></textarea><span class="form-validation"></span>
@@ -192,7 +214,7 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </div>
+                                    
                                 </div>
                                 <div class="tab-pane fade" id="tabs-1-4">
                                     <p>Welcome to our wonderful world. We sincerely hope that each and every user entering our website will find exactly what he/she is looking for. With advanced features of activating account and new login widgets, you will definitely have a great experience of using our web page. It will tell you lots of interesting things about our company, its products and services, highly professional staff and happy customers. Our site design and navigation has been thoroughly thought out. The layout is aesthetically appealing, contains concise texts in order not to take your precious time. Text styling allows scanning the pages quickly.</p>

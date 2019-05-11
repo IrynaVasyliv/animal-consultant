@@ -1,5 +1,5 @@
 ﻿@charset "UTF-8"; /*!normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css*/
-
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 html {
     font-family: sans-serif;
     -ms-text-size-adjust: 100%;
@@ -42387,3 +42387,43 @@ img.mfp-img {
         -o-transform: scale(0)
     }
 }
+
+.starrating > input {display: none;}  /* Remove radio buttons */
+.starcommentrating > input {
+    display: none;
+}
+
+.starrating > label:before { 
+    content: "\f005"; /* Star */
+    margin: 2px;
+    font-size: 2em;
+    font-family: FontAwesome;
+    display: inline-block; 
+}
+
+.starrating > input:checked ~ label {
+    color: #ffca08;
+}
+
+.starrating > input:hover ~ label {
+    color: #ffca08;
+}
+
+.starcommentrating > label:before {
+    content: "\f005"; /* Star */
+    margin: 2px;
+    font-size: 1em;
+    font-family: FontAwesome;
+    display: inline-block;
+}
+.starcommentrating > label {
+    color: #222222; /* Start color when not clicked */
+}
+.starrating > label
+{
+    color: #222222; /* Start color when not clicked */
+}
+
+.starcommentrating > input:checked ~ label {
+    color: #ffca08;
+} 
