@@ -42427,3 +42427,41 @@ img.mfp-img {
 .starcommentrating > input:checked ~ label {
     color: #ffca08;
 } 
+
+.likes {
+    display: inline-block;
+    width: 100%;
+    text-align: start;
+}
+
+.dislike {
+    display: inline-block;
+    cursor: pointer;
+    margin: 10px;
+    color: rgba(255, 144, 63,.5);
+}
+
+.like {
+    display: inline-block;
+    cursor: pointer;
+    margin: 10px;
+    color: rgba(55,172,133,.5);
+}
+
+    .like:hover {
+        color: #278261;
+        transition: all .2s ease-in-out;
+    }
+
+.dislike:hover {
+    color: #ff903f;
+    transition: all .2s ease-in-out;
+}
+
+.active.like {
+    color: #278261;
+}
+
+.active.dislike {
+    color: #ff903f;
+}
