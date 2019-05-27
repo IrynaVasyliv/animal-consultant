@@ -1,0 +1,36 @@
+﻿<div class="page-title">
+    <div class="page-title-text">Login page</div>
+    <ul class="breadcrumbs-custom">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Pages</a></li>
+        <li class="active">Login page</li>
+    </ul>
+</div>
+
+<section class="section-md bg-white text-center">
+    <div class="shell">
+        <div class="range range-sm-center spacing-55">
+            <div class="cell-xs-12">
+                <h2>Sign In</h2>
+            </div>
+            <div class="cell-sm-9 cell-md-7 cell-lg-6">
+                <div class="inset-sm-25">
+                    <div class="group-sm group-sm-justify group-middle"><a class="btn btn-round btn-facebook btn-icon btn-icon-left" href="#"><span class="icon fa fa-facebook"></span>Facebook</a><a class="btn btn-round btn-twitter btn-icon btn-icon-left" href="#"><span class="icon fa fa-twitter"></span>Twitter</a><a class="btn btn-round btn-google btn-icon btn-icon-left" href="#"><span class="icon fa fa-google-plus"></span>Google+</a></div>
+                    <div class="text-decoration-lines"><span class="text-decoration-lines-content">or</span></div>
+                    <!-- RD Mailform-->
+                    <form asp-controller="Account" asp-action="LoginPost" class="form-label-centered" novalidate="novalidate">
+                        <div class="form-group">
+                            <label class="form-label-outside" for="login-email">E-mail</label>
+                            <input class="form-control form-control-has-validation form-control-last-child" id="login-email" type="email" name="email" data-constraints="@@Email @@Required"><span class="form-validation"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label-outside" for="login-password">Password</label>
+                            <input class="form-control form-control-has-validation form-control-last-child" id="login-password" type="password" name="password" data-constraints="@@Required"><span class="form-validation"></span>
+                        </div>
+                        <button class="btn btn-tan-hide btn-block" type="submit">Enter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

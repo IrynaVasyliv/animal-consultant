@@ -1,0 +1,125 @@
+﻿
+    <div class="page-title">
+        <div class="page-title-text">Welcome</div>
+    </div>
+    <section class="section-md bg-white text-center">
+        <div class="shell">
+            <div class="range range-sm-center">
+                <div class="cell-sm-10 cell-md-10 cell-lg-12">
+                    <h4>Register</h4>
+                    <!-- RD Mailform-->
+                    <form asp-controller="Account" asp-action="PostRegister"  class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" novalidate="novalidate">
+                        <div class="range range-sm-bottom spacing-20">
+                            <div class="cell-sm-3">
+                                <div class="form-group">
+                                    <input class="form-control form-control-has-validation" id="contact-first-name" type="text" name="name" data-constraints="@@Required"><span class="form-validation"></span>
+                                    <label class="form-label rd-input-label" for="contact-first-name">First name</label>
+                                </div>
+                            </div>
+                            <div class="cell-sm-3">
+                                <div class="form-group">
+                                    <input class="form-control form-control-has-validation" id="contact-last-name" type="text" name="lastname" data-constraints="@@Required"><span class="form-validation"></span>
+                                    <label class="form-label rd-input-label" for="contact-last-name">Last name</label>
+                                </div>
+                            </div>
+                            <div class="cell-sm-6">
+                                <div class="form-group">
+                                    <input class="form-control form-control-has-validation" id="contact-last-name" type="text" name="username" data-constraints="@@Required"><span class="form-validation"></span>
+                                    <label class="form-label rd-input-label" for="contact-last-name">Username</label>
+                                </div>
+                            </div>
+                            <div class="cell-sm-6">
+                                <div class="form-group">
+                                    <input class="form-control form-control-has-validation" id="contact-phone" type="text" name="phone" data-constraints="@@Numeric"><span class="form-validation"></span>
+                                    <label class="form-label rd-input-label" for="contact-phone">Phone</label>
+                                </div>
+                            </div>
+                            <div class="cell-sm-6">
+                                <div class="form-group">
+                                    <input class="form-control form-control-has-validation" id="contact-email" type="email" name="email" data-constraints="@@Email @@Required"><span class="form-validation"></span>
+                                    <label class="form-label rd-input-label" for="contact-email">E-mail</label>
+                                </div>
+                            </div>
+                            <div class="cell-sm-6">
+                                <div class="form-group">
+                                    <input class="form-control form-control-has-validation" id="contact-password" type="password" name="password" data-constraints="@@Required"><span class="form-validation"></span>
+                                    <label class="form-label rd-input-label" for="contact-password">Password</label>
+                                </div>
+                            </div>
+                            <div class="cell-sm-6">
+                                <div class="form-group">
+                                    <input class="form-control form-control-has-validation" id="contact-confirmpassword" type="password" name="confirmpassword" data-constraints="@@Required"><span class="form-validation"></span>
+                                    <label class="form-label rd-input-label" for="contact-confirmpassword">Confirm Password</label>
+                                </div>
+                            </div>
+
+                            <div class="cell-xs-12">
+                                <button class="btn btn-tan-hide btn-block" type="submit">Register</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="shell">
+            <h3>Маленьке опитування</h3>
+            <p class="big text-width-medium">
+                Пройдіть маленьке опитування для того, щоб підібрати вам потрібну тваринку.
+
+            </p>
+            <div class="range range-lg-justify spacing-55 justify-content-center">
+                <div class="cell-sm-9 align-content-center">
+                    <h4>Питання</h4>
+
+                    <div class="cell-xs-12">
+                        <label class="radio-inline">
+                            <input type="radio" name="radio-1" checked="" class="radio-custom"><span class="radio-custom-dummy"></span>Yes, I would like to stay informed about Animal Shelter’s work
+                        </label>
+                    </div>
+
+                    <div class="cell-xs-12">
+
+                        <label class="radio-inline">
+                            <input type="radio" name="radio-1" class="radio-custom"><span class="radio-custom-dummy"></span>Yes, I would like to stay informed about Animal Shelter’s work
+                        </label>
+
+                    </div>
+                </div>
+
+                @*<div class="cell-md-6">
+                        <ul class="list-bars">
+                            <li class="list-bars-item">
+                                <!-- Progress Bar-->
+                                <div class="progress-bar-bs progress-variant-primary">
+                                    <p class="list-bars-item-header">Animal care</p>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                                    </div><span class="caption">75%</span>
+                                </div>
+                            </li>
+                            <li class="list-bars-item">
+                                <!-- Progress Bar-->
+                                <div class="progress-bar-bs progress-variant-primary">
+                                    <p class="list-bars-item-header">Pet boarding</p>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%"></div>
+                                    </div><span class="caption">85%</span>
+                                </div>
+                            </li>
+                            <li class="list-bars-item">
+                                <!-- Progress Bar-->
+                                <div class="progress-bar-bs progress-variant-primary">
+                                    <p class="list-bars-item-header">Lost and found pets</p>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%"></div>
+                                    </div><span class="caption">80%</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>*@
+            </div>
+        </div>
+    </section>
+

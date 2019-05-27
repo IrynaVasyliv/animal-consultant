@@ -1091,6 +1091,7 @@ input[type=search] {
     margin-bottom: 0;
     vertical-align: middle;
     font-weight: 400;
+    font-size: 20px;
     cursor: pointer
 }
 
@@ -25182,12 +25183,12 @@ textarea.form-control {
 }
 
 .radio .radio-custom, .radio .radio-custom-dummy, .radio-inline .radio-custom, .radio-inline .radio-custom-dummy {
-    height: 10px;
-    width: 10px
+    height: 17px;
+    width: 17px
 }
 
 .radio .radio-custom-dummy, .radio-inline .radio-custom-dummy {
-    margin-top: 7px;
+    margin-top: 10px;
     border: 2px solid #5acea4;
     border-radius: 50%;
     background-color: transparent
@@ -30736,7 +30737,7 @@ blockquote {
     background-size: cover;
     background-position: center center;
     background-color: #1b181d;
-    background-image: url(../images/bg-image-1.jpg)
+    background-image: url(/img/bg-image-1.jpg)
 }
 
 @media(min-width:992px) {
@@ -42465,3 +42466,4 @@ img.mfp-img {
 .active.dislike {
     color: #ff903f;
 }
+

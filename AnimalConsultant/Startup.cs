@@ -2,13 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AnimalConsultant.DAL;
+using AnimalConsultant.DAL.Models;
+using AnimalConsultant.DAL.Models.Identity;
+using AnimalConsultant.Generic;
+using AnimalConsultant.Services;
+using AutoMapper;
+using DemOffice.GenericCrud;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace AnimalConsultant
 {
@@ -32,7 +42,36 @@ namespace AnimalConsultant
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            AnimalConsultantDbProvider.ConnectionString = connection;
+
+            services.AddDbContext<AnimalConsultantDbContext>(options =>
+                options.UseSqlServer(connection));
+
+            services.AddAuthentication();
+
+            services.AddMvc().AddRazorPagesOptions(c => c.RootDirectory = "/Views").SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddGenericCrud<AnimalConsultantDbProvider>(opt =>
+                {
+                    opt.Setup = GenericEntitiesSetup.Mappings;
+                });
+
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<AnimalConsultantDbContext>()
+                .AddDefaultTokenProviders();
+
+
+            services.AddTransient<IUserService, UserService>();
+
+            services.AddAutoMapper();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+            });
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +91,14 @@ namespace AnimalConsultant
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

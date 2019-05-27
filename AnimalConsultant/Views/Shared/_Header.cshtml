@@ -2,7 +2,18 @@
 <header class="page-header">
     <!-- RD Navbar-->
     <div class="rd-navbar-wrap" style="height: 171px;">
-        <nav class="rd-navbar rd-navbar-transparent rd-navbar-original rd-navbar-static" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-sm-device-layout="rd-navbar-fixed" data-md-layout="rd-navbar-static" data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-static" data-lg-layout="rd-navbar-static" data-body-class="rd-navbar-absolute-linked" data-stick-up-clone="false" data-md-stick-up-offset="72px" data-lg-stick-up-offset="72px">
+        <nav class="rd-navbar rd-navbar-transparent rd-navbar-original rd-navbar-static" 
+             data-layout="rd-navbar-fixed" 
+             data-sm-layout="rd-navbar-fixed" 
+             data-sm-device-layout="rd-navbar-fixed" 
+             data-md-layout="rd-navbar-static" 
+             data-md-device-layout="rd-navbar-fixed" 
+             data-lg-device-layout="rd-navbar-static" 
+             data-lg-layout="rd-navbar-static" 
+             data-body-class="rd-navbar-absolute-linked"
+             data-stick-up-clone="false" 
+             data-md-stick-up-offset="72px" 
+             data-lg-stick-up-offset="72px">
             <div class="rd-navbar-top-panel toggle-original-elements">
                 <div class="rd-navbar-top-panel-toggle toggle-original" data-rd-navbar-toggle=".rd-navbar-top-panel"><span></span></div>
                 <div class="rd-navbar-top-panel-content">
@@ -12,7 +23,20 @@
                         <li><a class="icon icon-xxs icon-circle icon-gray-outline icon-effect-1 fa fa-twitter" href="https://livedemo00.template-help.com/wt_61279/index-1.html#"></a></li>
                         <li><a class="icon icon-xxs icon-circle icon-gray-outline icon-effect-1 fa fa-google-plus" href="https://livedemo00.template-help.com/wt_61279/index-1.html#"></a></li>
                     </ul>
-                    <div class="object-inline"><span class="icon icon-sm icon-gray material-icons-phone"></span><a class="link link-md link-white" href="callto:#">+1 (409) 987–5874</a></div>
+                    @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
+                    {
+                        <div class="object-inline">
+                            <a class="link link-md link-white" href="/account">My Account</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="object-inline">
+                            <a class="link link-md link-white" href="/login">Login</a>
+                            <p>/</p>
+                            <a class="link link-md link-white" href="/register">Register</a>
+                        </div>
+                    }
                 </div>
             </div>
             <div class="rd-navbar-inner">
@@ -27,13 +51,13 @@
                     <div class="rd-navbar-nav-wrap-bg"></div>
                     <ul class="rd-navbar-nav">
                         <li class="active">
-                            <a href="https://livedemo00.template-help.com/wt_61279/index.html">Home</a>
+                            <a href="https://livedemo00.template-help.com/wt_61279/index.html">Головна</a>
                         </li>
                         <li>
-                            <a href="https://livedemo00.template-help.com/wt_61279/about-us.html">About Us</a>
+                            <a href="https://livedemo00.template-help.com/wt_61279/about-us.html">Форум</a>
                         </li>
                         <li class="rd-navbar--has-dropdown rd-navbar-submenu">
-                            <a href="https://livedemo00.template-help.com/wt_61279/adopt-a-pet.html">Adopt a Pet</a>
+                            <a href="https://livedemo00.template-help.com/wt_61279/adopt-a-pet.html">Енциклопедія</a>
                             <ul class="rd-navbar-dropdown tabs-nav">
                                 <li>
                                     <a href="https://livedemo00.template-help.com/wt_61279/adopt-a-pet.html#adopt-cats">Adopt cats</a>
@@ -51,13 +75,10 @@
                             <span class="rd-navbar-submenu-toggle"></span>
                         </li>
                         <li>
-                            <a href="https://livedemo00.template-help.com/wt_61279/lost-&amp;-found.html">Lost &amp; Found</a>
-                        </li>
-                        <li>
-                            <a href="https://livedemo00.template-help.com/wt_61279/pet-services.html">Pet Services</a>
+                            <a href="https://livedemo00.template-help.com/wt_61279/pet-services.html">Притулок</a>
                         </li>
                         <li class="rd-navbar--has-dropdown rd-navbar-submenu">
-                            <a href="https://livedemo00.template-help.com/wt_61279/news.html">News</a>
+                            <a href="https://livedemo00.template-help.com/wt_61279/news.html">Про нас</a>
                             <ul class="rd-navbar-dropdown">
                                 <li>
                                     <a href="https://livedemo00.template-help.com/wt_61279/single-post.html">Single post</a>
