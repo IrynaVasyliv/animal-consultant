@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalConsultant.DAL", "Ani
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemOffice.GenericCrud", "DemOffice.GenericCrud\DemOffice.GenericCrud.csproj", "{9831BE9A-52FC-4001-9E6C-7C6487842066}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalConsultant.Services", "AnimalConsultant.Services\AnimalConsultant.Services.csproj", "{08BF5293-8070-42F3-AD96-608304EEEB2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalConsultant.Services", "AnimalConsultant.Services\AnimalConsultant.Services.csproj", "{08BF5293-8070-42F3-AD96-608304EEEB2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

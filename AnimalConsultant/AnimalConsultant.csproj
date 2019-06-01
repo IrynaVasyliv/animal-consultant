@@ -25,6 +25,7 @@
     <Folder Include="wwwroot\img\articles\" />
     <Folder Include="wwwroot\img\questions\" />
     <Folder Include="wwwroot\img\users\" />
+    <Folder Include="wwwroot\lib\NewFolder\" />
   </ItemGroup>
 
 </Project>

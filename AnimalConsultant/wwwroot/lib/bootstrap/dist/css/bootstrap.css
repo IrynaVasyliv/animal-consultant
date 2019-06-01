@@ -3246,11 +3246,11 @@ input[type="button"].btn-block {
   background-color: #f8f9fa;
 }
 
-.dropdown-item.active, .dropdown-item:active {
-  color: #fff;
-  text-decoration: none;
-  background-color: #007bff;
-}
+    .dropdown-item.active, .dropdown-item:active {
+        color: #fff;
+        text-decoration: none;
+        background-color: #5acea4;
+    }
 
 .dropdown-item.disabled, .dropdown-item:disabled {
   color: #6c757d;

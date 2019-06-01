@@ -7,15 +7,15 @@
                     <div class="tabs-custom tabs-horizontal tabs-line tabs-centered" id="tabs-1">
                         <!-- Nav tabs-->
                         <ul class="nav nav-tabs">
-                            <li class="@(ViewBag.ActiveTab == null || ViewBag.ActiveTab == 1 ? "active" : "")"><a href="#tabs-1-1" data-toggle="tab">Profile</a></li>
-                            <li class="@(ViewBag.ActiveTab == 2 ? "active" : "")"><a href="#tabs-1-2" data-toggle="tab">Pets</a></li>
-                            <li class="@(ViewBag.ActiveTab == 3 ? "active" : "")"><a href="#tabs-1-3" data-toggle="tab">Questions</a></li>
-                            <li class="@(ViewBag.ActiveTab == 4 ? "active" : "")"><a href="#tabs-1-4" data-toggle="tab">Messages</a></li>
-                            <li class="@(ViewBag.ActiveTab == 5 ? "active" : "")"><a href="#tabs-1-5" data-toggle="tab">Reviews</a></li>
+                            <li><a href="#tabs-1-1" data-toggle="tab">Profile</a></li>
+                            <li class="active"><a href="#tabs-1-2" aria-expanded="true" class="active" data-toggle="tab">Pets</a></li>
+                            <li><a href="#tabs-1-3" data-toggle="tab">Questions</a></li>
+                            <li><a href="#tabs-1-4" data-toggle="tab">Messages</a></li>
+                            <li><a href="#tabs-1-5" data-toggle="tab">Reviews</a></li>
                         </ul>
                         <!-- Tab panes-->
                         <div class="tab-content">
-                            <div class="tab-pane fade  @(ViewBag.ActiveTab == null || ViewBag.ActiveTab == 1 ? "in active show" : "")" id="tabs-1-1">
+                            <div class="tab-pane fade" id="tabs-1-1">
                                 <form asp-controller="Account" asp-action="UpdateAccount" class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" novalidate="novalidate">
                                     <div class="range range-sm-bottom spacing-20">
                                         <div class="cell-sm-3">
@@ -44,8 +44,8 @@
                                         </div>
                                         <div class="cell-sm-6">
                                             <div class="form-group">
-                                                <div class="input-file-container">  
-                                                    <input class="input-file change-picture-input-file btn btn-tan-hide" id="my-file" type="file">
+                                                <div class="input-file-container">
+                                                    <input class="input-file btn btn-tan-hide" id="my-file" type="file">
                                                     <label tabindex="0" for="my-file" class="input-file-trigger">Select image</label>
                                                 </div>
                                             </div>
@@ -57,100 +57,78 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="tab-pane fade  @(ViewBag.ActiveTab == 2 ? "in active show" : "")" id="tabs-1-2">
-                                <div class="range spacing-30">
-                                    <div class="cell-sm-4">
-                                        <div class="thumbnail-boxed thumbnail-boxed-vertical">
-                                            <div class="thumbnail-boxed-left">
-                                                <img class="thumbnail-boxed-image" src="~/img/adopt-cats-5-370x240.jpg" alt="" width="370" height="240">
+                            <div class="tab-pane fade active show in" id="tabs-1-2">
+                                <form asp-controller="Account" asp-action="AddPet" method="post" novalidate="novalidate">
+                                    <div class="range range-sm-bottom spacing-20">
+                                        <div class="cell-sm-6">
+                                            <div class="form-group">
+                                                <input class="form-control form-control-has-validation" id="first-name" type="text" name="name" data-constraints="@@Required"><span class="form-validation"></span>
+                                                <label class="form-label rd-input-label" for="first-name">Pet name</label>
                                             </div>
-                                            <div class="thumbnail-boxed-body">
-                                                <p class="thumbnail-boxed-title"><a href="single-page-pets.html">Lavender</a></p>
-                                                <div class="thumbnail-boxed-text">
-                                                    <p>This beautiful cat had health issues her family couldn’t take care of, so she came to us...</p>
-                                                </div>
-                                                <div class="thumbnail-boxed-footer">
-                                                    <ul class="thumbnail-boxed-meta">
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.1 years old</span></li>
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>7 pounds</span></li>
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
+                                        </div>
+                                        <div class="cell-sm-6">
+                                            <div class="form-group">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span>Pet type</span>
+                                                    </button>
+                                                    <input class="input-hidden" hidden>
+                                                    <ul class="dropdown-menu w-100 text-center" aria-labelledby="dLabel">
+                                                        <li class="dropdown-item" data-value="0">Dog</li>
+                                                        <li class="dropdown-item" data-value="1">Cat</li>
+                                                        <li class="dropdown-item" data-value="2">Farm animal</li>
+                                                        <li class="dropdown-item" data-value="3">Reptile</li>
+                                                        <li class="dropdown-item" data-value="4">Exotic</li>
+                                                        <li class="dropdown-item" data-value="5">Bird</li>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="cell-sm-4">
-                                        <div class="thumbnail-boxed thumbnail-boxed-vertical thumbnail-boxed-blue-marguerite">
-                                            <div class="thumbnail-boxed-left">
-                                                <img class="thumbnail-boxed-image" src="~/img/adopt-cats-2-370x240.jpg" alt="" width="370" height="240">
+                                        <div class="cell-sm-6">
+                                            <div class="form-group">
+                                                <input class="form-control form-control-has-validation " id="breed" type="text" name="breed"><span class="form-validation"></span>
+                                                <label class="form-label rd-input-label" for="breed">Breed</label>
                                             </div>
-                                            <div class="thumbnail-boxed-body">
-                                                <p class="thumbnail-boxed-title"><a href="single-page-pets.html">Lavender</a></p>
-                                                <div class="thumbnail-boxed-text">
-                                                    <p>This beautiful cat had health issues her family couldn’t take care of, so she came to us...</p>
-                                                </div>
-                                                <div class="thumbnail-boxed-footer">
-                                                    <ul class="thumbnail-boxed-meta">
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.1 years old</span></li>
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>7 pounds</span></li>
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
+                                        </div>
+                                        <div class="cell-sm-6">
+                                            <div class="form-group">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-default dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span>Gender</span>
+                                                    </button>
+                                                    <input class="input-hidden" hidden>
+                                                    <ul class="dropdown-menu w-100 text-center" aria-labelledby="dLabel">
+                                                        <li class="dropdown-item" data-value="0">Male</li>
+                                                        <li class="dropdown-item" data-value="1">Female</li>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="cell-sm-4">
-                                        <div class="thumbnail-boxed thumbnail-boxed-vertical thumbnail-boxed-tan-hide">
-                                            <div class="thumbnail-boxed-left">
-                                                <img class="thumbnail-boxed-image" src="~/img/adopt-cats-3-370x240.jpg" alt="" width="370" height="240">
+                                        <div class="cell-sm-3">
+                                            <div class="form-group">
+                                                <input class="form-control form-control-has-validation " id="weight" type="text" name="weight"><span class="form-validation"></span>
+                                                <label class="form-label rd-input-label" for="weight">Weight</label>
                                             </div>
-                                            <div class="thumbnail-boxed-body">
-                                                <p class="thumbnail-boxed-title"><a href="single-page-pets.html">Lavender</a></p>
-                                                <div class="thumbnail-boxed-text">
-                                                    <p>This beautiful cat had health issues her family couldn’t take care of, so she came to us...</p>
-                                                </div>
-                                                <div class="thumbnail-boxed-footer">
-                                                    <ul class="thumbnail-boxed-meta">
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.1 years old</span></li>
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>7 pounds</span></li>
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
-                                                    </ul>
+                                        </div>
+                                        <div class="cell-sm-3">
+                                            <p>kg</p>
+                                        </div>
+                                        <div class="cell-sm-6">
+                                            <div class="form-group">
+                                                <div class="input-file-container">
+                                                    <input class="input-file btn btn-tan-hide" id="my-file" type="file">
+                                                    <label tabindex="0" for="my-file" class="input-file-trigger">Select image</label>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="cell-sm-4">
-                                        <div class="thumbnail-boxed thumbnail-boxed-vertical">
-                                            <div class="thumbnail-boxed-left">
-                                                <img class="thumbnail-boxed-image" src="~/img/adopt-cats-4-370x240.jpg" alt="" width="370" height="240">
-                                            </div>
-                                            <div class="thumbnail-boxed-body">
-                                                <p class="thumbnail-boxed-title"><a href="single-page-pets.html">Lavender</a></p>
-                                                <div class="thumbnail-boxed-text">
-                                                    <p>This beautiful cat had health issues her family couldn’t take care of, so she came to us...</p>
-                                                </div>
-                                                <div class="thumbnail-boxed-footer">
-                                                    <ul class="thumbnail-boxed-meta">
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.1 years old</span></li>
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>7 pounds</span></li>
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                        <div class="cell-xs-12">
+                                            <button class="btn btn-tan-hide pull-right btn-effect-ujarak" type="submit">Save</button>
                                         </div>
+
                                     </div>
-                                    <div class="cell-sm-4">
-                                        <div class="col-decoration-skew-inner">
-                                            <h2>Add</h2>
-                                            <h5>more pets</h5>
-                                            <a class="btn btn-trout-inverse btn-effect-anis btn-offset-medium" href="@Url.Action("AddPet", "Account")">
-                                                <span class="icon icon-sm icon-tan-hide material-icons-add"></span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
-                            <div class="tab-pane fade @(ViewBag.ActiveTab == 3 ? "in active show" : "")" id="tabs-1-3">
+                            <div class="tab-pane fade" id="tabs-1-3">
                                 <div class="tab-questions text-center">
                                     <a href="#" style="width: 100%; margin-top: 10px">
                                         <blockquote class="quote-classic">
@@ -205,11 +183,11 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="tab-pane fade @(ViewBag.ActiveTab == 4 ? "in active show" : "")" id="tabs-1-4">
+                            <div class="tab-pane fade" id="tabs-1-4">
                                 <p>Welcome to our wonderful world. We sincerely hope that each and every user entering our website will find exactly what he/she is looking for. With advanced features of activating account and new login widgets, you will definitely have a great experience of using our web page. It will tell you lots of interesting things about our company, its products and services, highly professional staff and happy customers. Our site design and navigation has been thoroughly thought out. The layout is aesthetically appealing, contains concise texts in order not to take your precious time. Text styling allows scanning the pages quickly.</p>
                                 <p>Site navigation is extremely intuitive and user-friendly. You will always know where you are now and will be able to skip from one page to another with a single mouse click. We use only trusted, verified content, so you can believe every word we are saying. We are always happy to greet the new visitors on our site.</p>
                             </div>
-                            <div class="tab-pane fade @(ViewBag.ActiveTab == 5 ? "in active show" : "")" id="tabs-1-5">
+                            <div class="tab-pane fade" id="tabs-1-5">
                                 <div class="comment-group">
                                     <!-- Comment-->
                                     <article class="comment">

@@ -17,10 +17,33 @@ namespace AnimalConsultant.Controllers
             _userService = userService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? activeTab)
         {
             var user = await _userService.GetCurrentUserAsync();
+            ViewBag.ActiveTab = activeTab;
             return View(user.Role);
+        }
+
+        public async Task<IActionResult> AddPet()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPet(Pet pet)
+        {
+            return RedirectToAction("Index", new {activeTab = 2});
+        }
+
+        public async Task<IActionResult> AddQuestion()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddQuestion(Question pet)
+        {
+            return RedirectToAction("Index", new { activeTab = 3 });
         }
 
         [HttpGet("register")]
@@ -55,6 +78,12 @@ namespace AnimalConsultant.Controllers
             if (result.Succeeded)
                 return RedirectToAction("Index");
             return BadRequest();
+        }
+
+        [HttpPost]
+        public IActionResult UpdateAccount(User user)
+        {
+            return Ok("MF005");
         }
     }
 }
