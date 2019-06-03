@@ -18,5 +18,6 @@ namespace AnimalConsultant.DAL.Models
         public ICollection<Rating> IncomingRatings { get; set; }
         public ICollection<Rating> OutcomingRatings { get; set; }
         public ICollection<Reaction> Reactions { get; set; }
+        public ICollection<Pet> Pets { get; set; }
     }
 }

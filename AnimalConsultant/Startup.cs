@@ -51,7 +51,9 @@ namespace AnimalConsultant
 
             services.AddAuthentication();
 
-            services.AddMvc().AddRazorPagesOptions(c => c.RootDirectory = "/Views").SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            services.AddMvc()
+                .AddRazorPagesOptions(c => c.RootDirectory = "/Views")
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddGenericCrud<AnimalConsultantDbProvider>(opt =>
                 {
                     opt.Setup = GenericEntitiesSetup.Mappings;
