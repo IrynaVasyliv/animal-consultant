@@ -1,4 +1,14 @@
-﻿<section class="section-lg bg-white">
+﻿@using AnimalConsultant.DAL.Models.Identity
+@using AnimalConsultant.Services.Models
+@using DemOffice.GenericCrud.Services
+@model IEnumerable<AnimalConsultant.Services.Models.Question>
+@inject IReadOnlyGenericService<AnimalType, AnimalType, object> animalService
+@inject IReadOnlyGenericService<Category, Category, object> categoryService
+@{
+    var animals = (await animalService.ReadList(null)).Data;
+    var categories = (await categoryService.ReadList(null)).Data;
+}
+<section class="section-lg bg-white">
     <div class="shell shell-wide">
         <div class="range">
             <div class="cell-md-8">
@@ -11,157 +21,51 @@
                 </div>
                 <!-- Bootstrap tabs-->
                 <div class="tab-questions text-center">
-                    <a href="#">
-                        <blockquote class="quote-classic">
-                            <div class="quote-classic-left">
-                                <img class="quote-classic-image" src="~/img/home/home1-11-237x268.jpg" alt="" width="280" height="320">
-                            </div>
-                            <div class="quote-classic-body">
-                                <div class="quote-classic-header">
-                                    <cite>Hi I have a germane shaperd dog and his ears is not good can you tell me what is that</cite>
-                                    <p class="caption">answered by DR. A. HINSON, DVM</p>
+                    @foreach (var question in Model)
+                    {
+                        <a asp-controller="Forum" asp-action="Question" asp-route-id="@question.Id">
+                            <blockquote class="quote-classic">
+                                <div class="quote-classic-left">
+                                    <img class="quote-classic-image" src="~/img/home/home1-11-237x268.jpg" alt="" width="280" height="320">
                                 </div>
-                                <p class="quote-classic-text">
-                                    <q>Delta is one of the most energetic and cheerful dogs I ever had! Thank you, Animal Shelter, for making my life more positive and happier!</q>
-                                </p>
-                                <div class="quote-classic-meta">
-                                    <ul class="post-meta">
-                                        <li>
-                                            <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
-                                            <time datetime="2016-01-01">19 April 2016</time>
-                                        </li>
-                                        <li><span class="icon icon-xs icon-tan-hide fa fa-thumbs-up"></span><span>23</span></li>
-                                        <li><span class="icon icon-xs icon-tan-hide fa fa-comment-o"></span><span>6</span></li>
-                                    </ul>
-                                    <ul class="post-meta">
-                                        <li>
-                                            <span class="big text-blue-marguerite">Cats</span>
-                                        </li>
-                                        <li>
-                                            <span class="big text-blue-marguerite">Health</span>
-                                        </li>
-                                    </ul>
+                                <div class="quote-classic-body">
+                                    <div class="quote-classic-header">
+                                        <cite>@question.Content</cite>
+                                        @{
+                                            var answer = question.Comments.Where(x => x.User.Role == nameof(Roles.Vet)).OrderBy(x => x.Rating).LastOrDefault();
+                                        }
+                                        <p class="caption"> @(answer == null ? "no answer" : $"answered by { answer.User.FirstName } {answer.User.LastName}")</p>
+                                    </div>
+                                    <p class="quote-classic-text">
+                                        <q>@(answer == null ? string.Empty : answer.Content)</q>
+                                    </p>
+                                    <div class="quote-classic-meta">
+                                        <ul class="post-meta">
+                                            <li>
+                                                <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
+                                                <time datetime="2016-01-01">@question.CreateDate.ToString("dd MMMM yyyy")</time>
+                                            </li>
+                                            <li><span class="icon icon-xs icon-tan-hide fa fa-thumbs-up"></span><span>@question.Reactions.Count(x => x.Liked)</span></li>
+                                            <li><span class="icon icon-xs icon-tan-hide fa fa-comment-o"></span><span>@question.Comments.Count</span></li>
+                                        </ul>
+                                        <ul class="post-meta">
+                                            <li>
+                                                <span class="big text-blue-marguerite">@question.AnimalType.Description</span>
+                                            </li>
+                                            <li>
+                                                <span class="big text-blue-marguerite">@question.Category.Description</span>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                        </blockquote>
-                    </a>
-                    <a href="#">
-                        <blockquote class="quote-classic">
-                            <div class="quote-classic-left">
-                                <img class="quote-classic-image" src="~/img/home/home1-1-567x381.jpg" alt="" width="280" height="320">
-                            </div>
-                            <div class="quote-classic-body">
-                                <div class="quote-classic-header">
-                                    <cite>My dog consumed 3 tiny human prescribed ayurvedic tablets what should I do</cite>
-                                    <p class="caption">answered by DR. A. HINSON, DVM</p>
-                                </div>
-                                <p class="quote-classic-text">
-                                    <q>I'm sorry but I am not familiar with these tablets. Can you please post again with photos of the bottle and ingredients? Thank you.</q>
-                                </p>
-                                <div class="quote-classic-meta">
-                                    <ul class="post-meta">
-                                        <li>
-                                            <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
-                                            <time datetime="2016-01-01">19 April 2016</time>
-                                        </li>
-                                        <li><span class="icon icon-xs icon-tan-hide fa fa-thumbs-up"></span><span>23</span></li>
-                                        <li><span class="icon icon-xs icon-tan-hide fa fa-comment-o"></span><span>6</span></li>
-                                    </ul>
-                                    <ul class="post-meta">
-                                        <li>
-                                            <span class="big text-blue-marguerite">Cats</span>
-                                        </li>
-                                        <li>
-                                            <span class="big text-blue-marguerite">Health</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </blockquote>
-                    </a>
-                    <a href="#">
-                        <blockquote class="quote-classic">
-                            <div class="quote-classic-left">
-                                <img class="quote-classic-image" src="~/img/home/home1-5-922x657.jpg" alt="" width="280" height="320">
-                            </div>
-                            <div class="quote-classic-body">
-                                <div class="quote-classic-header">
-                                    <cite>Iryna Vasyliv</cite>
-                                    <p class="caption">and Delta</p>
-                                </div>
-                                <p class="quote-classic-text">
-                                    <q>Delta is one of the most energetic and cheerful dogs I ever had! Thank you, Animal Shelter, for making my life more positive and happier!</q>
-                                </p>
-                                <div class="quote-classic-meta">
-                                    <ul class="post-meta">
-                                        <li>
-                                            <span class="icon icon-sm icon-tan-hide material-icons-access_time"></span>
-                                            <time datetime="2016-01-01">19 April 2016</time>
-                                        </li>
-                                        <li><span class="icon icon-sm icon-tan-hide fa fa-thumbs-up"></span><span>23</span></li>
-                                        <li><span class="icon icon-sm icon-tan-hide fa fa-comment-o"></span><span>6</span></li>
-                                    </ul>
-                                    <ul class="post-meta">
-                                        <li>
-                                            <span class="big text-blue-marguerite">Cats</span>
-                                        </li>
-                                        <li>
-                                            <span class="big text-blue-marguerite">Health</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </blockquote>
-                    </a>
-
-
-                    <blockquote class="quote-classic">
-                        <div class="quote-classic-left">
-                            <img class="quote-classic-image" src="~/img/home/home1-2-567x381.jpg" alt="" width="280" height="320">
-                        </div>
-                        <div class="quote-classic-body">
-                            <div class="quote-classic-header">
-                                <cite>Iryna Vasyliv</cite>
-                                <a href="/account" class="caption">answered by Vitalii Hrynyshyn</a>
-                            </div>
-                            <p class="quote-classic-text">
-                                <q>Delta is one of the most energetic and cheerful dogs I ever had! Thank you, Animal Shelter, for making my life more positive and happier!</q>
-                            </p>
-                            <div class="quote-classic-meta">
-                                <ul class="post-meta">
-                                    <li>
-                                        <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
-                                        <time datetime="2016-01-01">19 April 2016</time>
-                                    </li>
-                                    <li><span class="icon icon-xs icon-tan-hide fa fa-thumbs-up"></span><span>23</span></li>
-                                    <li><span class="icon icon-xs icon-tan-hide fa fa-comment-o"></span><span>6</span></li>
-
-                                </ul>
-                                <ul class="post-meta">
-                                    <li>
-                                        <span class="big text-blue-marguerite">Cats</span>
-                                    </li>
-                                    <li>
-                                        <span class="big text-blue-marguerite">Health</span>
-                                    </li>
-                                </ul>
-
-                            </div>
-                        </div>
-                    </blockquote>
-                    <div class="btn btn-circle btn-silver-outline btn-shadow block-centered">SHOW MORE</div>
+                            </blockquote>
+                        </a>
+                    }
+                    <a class="btn btn-circle btn-silver-outline btn-shadow block-centered">SHOW MORE</a>
                 </div>
-                @*<ul class="pagination-custom">
-                    <li class="disabled"><a href="#" aria-label="Previous"></a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#" aria-label="Next"></a></li>
-                </ul>*@
             </div>
             <div class="col-md-4">
-                <form class="rd-search form-sm search-form-classic" action="search-results.html" method="GET">
+                <form class="rd-search form-sm search-form-classic" action="@Url.Action("Index", "Forum")" method="GET">
                     <div class="form-group">
                         <input class="form-control form-control-square" id="rd-search-form-input" type="text" name="s" autocomplete="off">
                         <label class="form-label rd-input-label" for="rd-search-form-input">Search...</label>
@@ -173,7 +77,7 @@
                         <div class="panel panel-custom panel-corporate">
                             <div class="panel-heading" id="accordion1Heading1" role="tab">
                                 <div class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion1" href="https://livedemo00.template-help.com/wt_61279/host-your-own-fundraiser.html#accordion1Collapse1" aria-controls="accordion1Collapse1" aria-expanded="false" class="collapsed">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion1" aria-controls="accordion1Collapse1" aria-expanded="false" class="collapsed">
                                         Types of animal
                                         <div class="panel-arrow"></div>
                                     </a>
@@ -182,17 +86,11 @@
                             </div>
                             <div class="panel-collapse collapse" id="accordion1Collapse1" role="tabpanel" aria-labelledby="accordion1Heading1" aria-expanded="false" style="height: 0px;">
                                 <div class="panel-body">
-                                    <div class="btn btn-sm btn-silver-outline" style="margin-top: 2px">Dog</div>
-                                    <div class="btn btn-sm btn-primary" style="margin-top: 2px">Cat</div>
-                                    <div class="btn btn-sm btn-primary" style="margin-top: 2px">Farm animal</div>
-                                    <div class="btn btn-sm btn-silver-outline" style="margin-top: 2px">Reptile</div>
-                                    <div class="btn btn-sm btn-primary" style="margin-top: 2px">Exotic</div>
-                                    <div class="btn btn-sm btn-silver-outline" style="margin-top: 2px">Bird</div>
-                                    <div class="btn btn-sm btn-silver-outline" style="margin-top: 2px">Fish</div>
-                                    <div class="btn btn-sm btn-silver-outline" style="margin-top: 2px">Amphibian</div>
-                                    <div class="btn btn-sm btn-silver-outline" style="margin-top: 2px">Spiders & Insects</div>
-                                    <div class="btn btn-sm btn-silver-outline" style="margin-top: 2px">Small animal</div>
-                                    <div class="btn btn-sm btn-silver-outline" style="margin-top: 2px">Other</div>
+                                    @foreach (var animal in animals)
+                                    {
+                                        <div class="btn btn-sm btn-silver-outline" style="margin-top: 2px">@animal.Description</div>
+                                    }
+                                    
                                 </div>
                             </div>
                         </div>
@@ -200,7 +98,7 @@
                         <div class="panel panel-custom panel-corporate">
                             <div class="panel-heading" id="accordion1Heading2" role="tab">
                                 <div class="panel-title">
-                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="https://livedemo00.template-help.com/wt_61279/host-your-own-fundraiser.html#accordion1Collapse2" aria-controls="accordion1Collapse2" aria-expanded="false">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" aria-controls="accordion1Collapse2" aria-expanded="false">
                                         Categories
                                         <div class="panel-arrow"></div>
                                     </a>
@@ -208,21 +106,17 @@
                             </div>
                             <div class="panel-collapse collapse" id="accordion1Collapse2" role="tabpanel" aria-labelledby="accordion1Heading2" aria-expanded="false" style="height: 0px;">
                                 <div class="panel-body">
-                                    <div class="btn btn-sm btn-silver-outline" style="margin-top: 2px">Health</div>
-                                    <div class="btn btn-sm btn-primary" style="margin-top: 2px">Behavior & Training</div>
-                                    <div class="btn btn-sm btn-primary" style="margin-top: 2px">Nutrition</div>
-                                    <div class="btn btn-sm btn-silver-outline" style="margin-top: 2px">Care</div>
-                                    <div class="btn btn-sm btn-primary" style="margin-top: 2px">Breeds</div>
-                                    <div class="btn btn-sm btn-silver-outline" style="margin-top: 2px">Holistic Health Care</div>
-                                    <div class="btn btn-sm btn-silver-outline" style="margin-top: 2px">Natural Pet Products</div>
-                                    <div class="btn btn-sm btn-silver-outline" style="margin-top: 2px">Product Recoment</div>
+                                    @foreach (var category in categories)
+                                    {
+                                        <div class="btn btn-sm btn-primary" style="margin-top: 2px">@category.Description</div>
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="btn btn-sm btn-xl btn-icon btn-icon-right btn-silver-outline " style="width: 100%"> <span class="icon icon-md material-icons-close"></span>Clear all</div>
-                    
+                    <a href="@Url.Action("Index", "Forum")" class="btn btn-sm btn-xl btn-icon btn-icon-right btn-silver-outline " style="width: 100%"> <span class="icon icon-md material-icons-close"></span>Clear all</a>
+
                     <div class="cell-xs-6 height-fill bg-blue-marguerite" style="margin-top: 20px">
                         <div class="counter-box-bold">
                             <div class="counter  animated" data-from="0" data-to="2.5" data-formatter="false">ASK</div>
@@ -231,8 +125,8 @@
                         </div>
                     </div>
                 </form>
-                
+
+            </div>
         </div>
-    </div>
     </div>
 </section>
