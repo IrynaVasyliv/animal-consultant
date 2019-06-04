@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AnimalConsultant.Services.Models.Filters;
 using DemOffice.GenericCrud.Models;
 using D = AnimalConsultant.DAL.Models;
 using S = AnimalConsultant.Services.Models;
@@ -18,7 +20,23 @@ namespace AnimalConsultant.Generic
             new GenericSetup<S.Category, D.Category>(),
             new GenericSetup<S.Comment, D.Comment>(),
             new GenericSetup<S.Pet, D.Pet>(),
-            new GenericSetup<S.Question, D.Question>(),
+            new FilteredGenericSetup<S.Question, D.Question, QuestionFilter>(filters:
+                (filter, q, context) =>
+                {
+                    var filters = new List<Expression<Func<D.Question, bool>>>();
+
+                    if (filter.AnimalTypeId != null)
+                    {
+                        filters.Add(x=>x.AnimalTypeId == filter.AnimalTypeId);
+                    }
+
+                    if (filter.CategoryId != null)
+                    {
+                        filters.Add(x=>x.CategoryId == filter.CategoryId);
+                    }
+
+                    return filters;
+                }),
             new GenericSetup<S.Rating, D.Rating>(),
             new GenericSetup<S.Reaction, D.Reaction>(),
             new GenericSetup<S.User, D.User>(

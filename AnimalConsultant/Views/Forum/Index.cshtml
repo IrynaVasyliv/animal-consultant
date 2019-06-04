@@ -1,12 +1,13 @@
 ﻿@using AnimalConsultant.DAL.Models.Identity
 @using AnimalConsultant.Services.Models
+@using DemOffice.GenericCrud.DataAccess
 @using DemOffice.GenericCrud.Services
 @model IEnumerable<AnimalConsultant.Services.Models.Question>
 @inject IReadOnlyGenericService<AnimalType, AnimalType, object> animalService
 @inject IReadOnlyGenericService<Category, Category, object> categoryService
 @{
-    var animals = (await animalService.ReadList(null)).Data;
-    var categories = (await categoryService.ReadList(null)).Data;
+    var animals = (await animalService.ReadList(new GetManyOptions<object>())).Data;
+    var categories = (await categoryService.ReadList(new GetManyOptions<object>())).Data;
 }
 <section class="section-lg bg-white">
     <div class="shell shell-wide">

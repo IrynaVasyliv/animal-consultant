@@ -13,6 +13,12 @@ namespace AnimalConsultant.Controllers
     public class ForumController : Controller
     {
         private readonly IGenericService<Question, Question, QuestionFilter> _questionService;
+
+        public ForumController(IGenericService<Question, Question, QuestionFilter> questionService)
+        {
+            _questionService = questionService;
+        }
+
         public async Task<IActionResult> Index(
             [FromQuery(Name = "_start")] int? start,
             [FromQuery(Name = "_end")] int? end,
