@@ -1,15 +1,15 @@
 ﻿namespace AnimalConsultant.Services.Models
 {
-    public class Rating
+    public class Ratings
     {
         public long Id { get; set; }
         public int Stars { get; set; }
         public string Comment { get; set; }
         
         public long? UserId { get; set; }
-        public User User { get; set; }
+        public Users User { get; set; }
 
         public long? RatedUserId { get; set; }
-        public User RatedUser { get; set; }
+        public Users RatedUser { get; set; }
     }
 }

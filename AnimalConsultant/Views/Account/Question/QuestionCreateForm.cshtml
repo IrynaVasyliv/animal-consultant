@@ -1,0 +1,69 @@
+﻿@using AnimalConsultant.Services.Models
+@using DemOffice.GenericCrud.DataAccess
+@using DemOffice.GenericCrud.Services
+@model AnimalConsultant.Services.Models.Questions
+@inject IReadOnlyGenericService<Categories, Categories, object> CategoryService
+@{
+    var user = (Users) ViewBag.User;
+    var pets = user.Pets;
+    var categories = (await CategoryService.ReadList(new GetManyOptions<object>())).Data;
+}
+<form asp-controller="Account" asp-action="AddQuestion" method="post" novalidate="novalidate" id="create-question" enctype="multipart/form-data">
+    <div class="range range-sm-bottom spacing-20">
+        <div class="cell-sm-12">
+            @foreach (var pet in pets)
+            { 
+                <div class="cell-sm-6">
+                    <label class="radio-inline">
+                        <input type="radio" asp-for="PetId" value="@pet.Id" class="radio-custom"><span class="radio-custom-dummy"></span>@pet.Name
+                    </label>
+                </div> 
+            }
+        </div>
+        <div class="cell-sm-12">
+            <div class="form-group">
+                <textarea class="form-control form-control-has-validation" asp-for="Content" name="message" data-constraints="@@Required"></textarea><span class="form-validation"></span>
+                <label class="form-label rd-input-label" for="comment-message">Message</label>
+            </div>
+        </div>
+
+        <div class="cell-sm-6">
+            <div class="form-group">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>Category</span>
+                    </button>
+                    <input class="input-hidden" asp-for="CategoryId" hidden>
+                    <ul class="dropdown-menu w-100 text-center" aria-labelledby="dLabel">
+                        @foreach (var category in categories)
+                        {
+                            <li class="dropdown-item" data-value="@category.Id">@category.Description</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="cell-sm-12">
+            <div class="form-group">
+                <div class="file-uploader">
+                    <div class="file-uploader__message-area">
+                        <p>Select a file to upload</p>
+                    </div>
+                    <ul class="file-list"></ul>
+                    <div class="hidden-inputs hidden"></div>
+                    <div class="file-chooser">
+                        <div class="input-file-container">
+                            <input class="input-file file-chooser__input btn btn-tan-hide" id="my-file" type="file">
+                            <label tabindex="0" for="my-file" class="input-file-trigger">Select image</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="cell-sm-12">
+            <input class="file-uploader__submit-button" type="submit" value="Save">
+        </div>
+    </div>
+</form>

@@ -2,7 +2,7 @@
 
 namespace AnimalConsultant.Services.Models
 {
-    public class User
+    public class Users
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -15,10 +15,11 @@ namespace AnimalConsultant.Services.Models
         public long Id { get; set; }
         public string Role { get; set; }
 
-        public ICollection<Question> Questions { get; set; }
-        public ICollection<Comment> Comments { get; set; }
-        public ICollection<Rating> IncomingRatings { get; set; }
-        public ICollection<Rating> OutcomingRatings { get; set; }
-        public ICollection<Reaction> Reactions { get; set; }
+        public ICollection<Questions> Questions { get; set; }
+        public ICollection<Comments> Comments { get; set; }
+        public ICollection<Ratings> IncomingRatings { get; set; }
+        public ICollection<Ratings> OutcomingRatings { get; set; }
+        public ICollection<Reactions> Reactions { get; set; }
+        public ICollection<Pets> Pets { get; set; }
     }
 }

@@ -17,5 +17,7 @@ namespace AnimalConsultant.DAL.Models
 
         public long AnimalTypeId { get; set; }
         public AnimalType AnimalType { get; set; }
+
+        public ICollection<Question> Questions { get; set; }
     }
 }

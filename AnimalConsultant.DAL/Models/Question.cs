@@ -23,6 +23,9 @@ namespace AnimalConsultant.DAL.Models
         public long UserId { get; set; }
         public User User { get; set; }
 
+        public long? PetId { get; set; }
+        public Pet Pet { get; set; }
+
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Reaction> Reactions { get; set; }
     }

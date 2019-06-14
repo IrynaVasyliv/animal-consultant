@@ -16,16 +16,16 @@ namespace AnimalConsultant.Services
 {
     public interface IUserService
     {
-        Task<IdentityResult> CreateUserAsync(S.User user, string userRole = "user");
+        Task<IdentityResult> CreateUserAsync(S.Users user, string userRole = "user");
         Task<bool> CheckUserForRole(string email, string password, string role);
-        Task SignInUserAsync(S.User user, bool isLongTime, string schemeName = "default");
+        Task SignInUserAsync(S.Users user, bool isLongTime, string schemeName = "default");
         Task<SignInResult> PasswordSignInUserAsync(string email, string password, bool rememberMe, bool isLongTime);
         Task SignOutUserAsync();
-        Task<S.User> GetCurrentUserAsync();
-        Task<S.User> GetUserById(long id);
-        Task<S.User> GetUserByNickName(long id);
-        Task<IdentityResult> UpdateUserAsync(S.User user);
-        Task<IdentityResult> ChangePasswordAsync(S.User user, string newPassword);
+        Task<S.Users> GetCurrentUserAsync();
+        Task<S.Users> GetUserById(long id);
+        Task<S.Users> GetUserByNickName(long id);
+        Task<IdentityResult> UpdateUserAsync(S.Users user);
+        Task<IdentityResult> ChangePasswordAsync(S.Users user, string newPassword);
         Task<IEnumerable<string>> GetAllRolesAsync();
         Task<string> GetRoleByUserAsync(long userId);
         Task SetUsersRole(long id, string role);
@@ -60,9 +60,9 @@ namespace AnimalConsultant.Services
 
         }
 
-        public async Task<IdentityResult> UpdateUserAsync(User user)
+        public async Task<IdentityResult> UpdateUserAsync(Users user)
         {
-            var userEntity = Mapper.Map<S.User, D.User>(user, await _userRepository.Read(user.Id));
+            var userEntity = Mapper.Map<S.Users, D.User>(user, await _userRepository.Read(user.Id));
             var userUpdateResult = await _userManager.UpdateAsync(userEntity);
             if (userUpdateResult.Succeeded)
             {
@@ -71,7 +71,7 @@ namespace AnimalConsultant.Services
             return IdentityResult.Failed();
         }
 
-        public async Task<IdentityResult> ChangePasswordAsync(User user, string newPassword)
+        public async Task<IdentityResult> ChangePasswordAsync(Users user, string newPassword)
         {
             var userEntity = await _userRepository.Read(user.Id);
             var result = await _userManager.ChangePasswordAsync(userEntity, user.Password, newPassword);
@@ -82,9 +82,9 @@ namespace AnimalConsultant.Services
             return IdentityResult.Failed();
         }
 
-        public async Task<IdentityResult> CreateUserAsync(User user, string userRole = "user")
+        public async Task<IdentityResult> CreateUserAsync(Users user, string userRole = "user")
         {
-            var userEntity = Mapper.Map<S.User, D.User>(user);
+            var userEntity = Mapper.Map<S.Users, D.User>(user);
             var userRegisterResult = await _userManager.CreateAsync(userEntity, user.Password);
 
             if (userRegisterResult.Succeeded && CreateRoleAsync(userRole).Result.Succeeded)
@@ -97,9 +97,9 @@ namespace AnimalConsultant.Services
 
 
 
-        public async Task SignInUserAsync(User user, bool isLongTime, string schemeName = "default")
+        public async Task SignInUserAsync(Users user, bool isLongTime, string schemeName = "default")
         {
-            var userEntity = Mapper.Map<S.User, D.User>(user);
+            var userEntity = Mapper.Map<S.Users, D.User>(user);
             var schemes = (await _signInManager.GetExternalAuthenticationSchemesAsync()).Where(c => c.Name == schemeName);
             await _signInManager.SignInAsync(userEntity, isLongTime);
         }
@@ -129,24 +129,24 @@ namespace AnimalConsultant.Services
             await _signInManager.SignOutAsync();
         }
 
-        public async Task<User> GetCurrentUserAsync()
+        public async Task<Users> GetCurrentUserAsync()
         {
             var user = await _userManager.GetUserAsync(_context.HttpContext.User);
-            var mapped = Mapper.Map<D.User, S.User>(user);
+            var mapped = Mapper.Map<D.User, S.Users>(user);
             mapped.Role = await this.GetRoleByUserAsync(user.Id);
             return mapped;
         }
 
-        public async Task<User> GetUserById(long id)
+        public async Task<Users> GetUserById(long id)
         {
             var user = await _userRepository.Read(id);
-            var mapped = Mapper.Map<D.User, S.User>(user);
+            var mapped = Mapper.Map<D.User, S.Users>(user);
             mapped.Role = await this.GetRoleByUserAsync(user.Id);
             return mapped;
         }
-        public async Task<User> GetUserByNickName(long nickName)
+        public async Task<Users> GetUserByNickName(long nickName)
         {
-            return Mapper.Map<D.User, S.User>(await _userRepository.Read(nickName));
+            return Mapper.Map<D.User, S.Users>(await _userRepository.Read(nickName));
         }
 
         public async Task<IEnumerable<string>> GetAllRolesAsync()

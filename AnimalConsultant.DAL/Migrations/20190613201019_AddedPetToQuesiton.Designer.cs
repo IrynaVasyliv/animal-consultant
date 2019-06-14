@@ -4,14 +4,16 @@ using AnimalConsultant.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AnimalConsultant.DAL.Migrations
 {
     [DbContext(typeof(AnimalConsultantDbContext))]
-    partial class AnimalConsultantDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190613201019_AddedPetToQuesiton")]
+    partial class AddedPetToQuesiton
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

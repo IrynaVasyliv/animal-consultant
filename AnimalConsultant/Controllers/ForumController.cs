@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AnimalConsultant.DAL.Models;
 using AnimalConsultant.Services.Models;
 using AnimalConsultant.Services.Models.Filters;
 using DemOffice.GenericCrud.DataAccess;
@@ -12,7 +13,13 @@ namespace AnimalConsultant.Controllers
 {
     public class ForumController : Controller
     {
-        private readonly IGenericService<Question, Question, QuestionFilter> _questionService;
+        private readonly IReadOnlyGenericService<Questions, Questions, QuestionFilter> _questionService;
+
+        public ForumController(IReadOnlyGenericService<Questions, Questions, QuestionFilter> questionService)
+        {
+            _questionService = questionService;
+        }
+
         public async Task<IActionResult> Index(
             [FromQuery(Name = "_start")] int? start,
             [FromQuery(Name = "_end")] int? end,
@@ -32,7 +39,7 @@ namespace AnimalConsultant.Controllers
                 Filter = filter,
                 SearchQuery = searchQuery
             });
-            return View(questions.Data.OrderBy(x=>x.Rating));
+            return View(questions.Data.OrderBy(x=>x.Rating).ToList());
         }
 
         public async Task<IActionResult> Question([FromQuery]long id)

@@ -2,12 +2,12 @@
 
 namespace AnimalConsultant.Services.Models
 {
-    public class AnimalType 
+    public class AnimalTypes 
     {
         public long Id { get; set; }
         public string Description { get; set; }
 
-        public ICollection<Question> Questions { get; set; }
-        public ICollection<Article> Articles { get; set; }
+        public ICollection<Questions> Questions { get; set; }
+        public ICollection<Articles> Articles { get; set; }
     }
 }

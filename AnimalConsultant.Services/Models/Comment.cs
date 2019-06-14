@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AnimalConsultant.Services.Models
 {
-    public class Comment
+    public class Comments
     {
         public long Id { get; set; }
         public string Content { get; set; }
@@ -13,11 +13,11 @@ namespace AnimalConsultant.Services.Models
         public double Rating { get; set; }
 
         public long? QuestionId { get; set; }
-        public Question Question { get; set; }
+        public Questions Question { get; set; }
 
         public long UserId { get; set; }
-        public User User { get; set; }
+        public Users User { get; set; }
 
-        public ICollection<Reaction> Reactions { get; set; }
+        public ICollection<Reactions> Reactions { get; set; }
     }
 }

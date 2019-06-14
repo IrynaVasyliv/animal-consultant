@@ -2,7 +2,7 @@
 
 namespace AnimalConsultant.Services.Models
 {
-    public class Pet
+    public class Pets
     {
         public long Id { get; set; }
         public string Name { get; set; }
@@ -11,9 +11,9 @@ namespace AnimalConsultant.Services.Models
         public DateTime? DateOfBirth { get; set; }
 
         public long OwnerId { get; set; }
-        public User Owner { get; set; }
+        public Users Owner { get; set; }
 
         public long AnimalTypeId { get; set; }
-        public AnimalType AnimalType { get; set; }
+        public AnimalTypes AnimalType { get; set; }
     }
 }

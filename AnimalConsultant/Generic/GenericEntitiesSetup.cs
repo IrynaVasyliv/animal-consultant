@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DemOffice.GenericCrud.Models;
 using D = AnimalConsultant.DAL.Models;
 using S = AnimalConsultant.Services.Models;
+using F = AnimalConsultant.Services.Models.Filters;
 
 namespace AnimalConsultant.Generic
 {
@@ -13,15 +15,23 @@ namespace AnimalConsultant.Generic
         public static readonly IReadOnlyCollection<GenericSetup> Mappings = new List<GenericSetup>
         {
             
-            new GenericSetup<S.AnimalType, D.AnimalType>(),
-            new GenericSetup<S.Article, D.Article>(),
-            new GenericSetup<S.Category, D.Category>(),
-            new GenericSetup<S.Comment, D.Comment>(),
-            new GenericSetup<S.Pet, D.Pet>(),
-            new GenericSetup<S.Question, D.Question>(),
-            new GenericSetup<S.Rating, D.Rating>(),
-            new GenericSetup<S.Reaction, D.Reaction>(),
-            new GenericSetup<S.User, D.User>(
+            new GenericSetup<S.AnimalTypes, D.AnimalType>(),
+            new GenericSetup<S.Articles, D.Article>(),
+            new GenericSetup<S.Categories, D.Category>(),
+            new GenericSetup<S.Comments, D.Comment>(),
+            new GenericSetup<S.Pets, D.Pet>(),
+            new FilteredGenericSetup<S.Questions, D.Question, F.QuestionFilter>(
+                (filter, q, context) =>
+            {
+                return new List<Expression<Func<D.Question, bool>>>();
+            },
+                mappingOverride: x=>x
+                .ForMember(s=>s.Image, opt=>opt.MapFrom(d=>string.Join(";", d.Image)))
+                .ReverseMap()
+                .ForMember(s=>s.Image, opt => opt.MapFrom(d => d.Image.Split(';', StringSplitOptions.None).ToList()))),
+            new GenericSetup<S.Ratings, D.Rating>(),
+            new GenericSetup<S.Reactions, D.Reaction>(),
+            new GenericSetup<S.Users, D.User>(
                 validate: (entity, type, db) =>
                 {
                     var result = new List<string>();
