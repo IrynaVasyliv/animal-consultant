@@ -1,0 +1,44 @@
+﻿@using AnimalConsultant.DAL.Models.Identity
+@using AnimalConsultant.Services.Models
+@model IEnumerable<AnimalConsultant.Services.Models.Questions>
+
+<div class="tab-questions text-center">
+    @foreach (var question in Model)
+    {
+        <a href="@Url.Action("Question", "Forum", new {id = question.Id})" style="width: 100%; margin-top: 10px">
+            <blockquote class="quote-classic">
+                <div class="quote-classic-body">
+                    <div class="quote-classic-header">
+                        <cite>@question.Content</cite>
+                        @{
+                            var answer = question.Comments.FirstOrDefault(x => x.Rating == question.Comments.Select(q => q.Rating).Max() && x.User.Role == Roles.Vet.ToString());
+                        }
+                        <p class="caption">@(answer != null ? $"answered by {answer.User.FirstName} {answer.User.LastName}" : "no answer yet")</p>
+                    </div>
+                    @if (answer != null)
+                    {
+                        <p class="quote-classic-text">
+                            <q>@answer.Content</q>
+                        </p>
+                    }
+                   
+                    <div class="quote-classic-meta">
+                        <ul class="post-meta">
+                            <li>
+                                <span class="icon icon-sm icon-tan-hide material-icons-access_time"></span>
+                                <time datetime="2016-01-01">@question.CreateDate.ToString("dd MMMM yyyy")</time>
+                            </li>
+                            <li><span class="icon icon-sm icon icon-tan-hide fa fa-thumbs-up"></span><span>@question.Likes</span></li>
+                            <li><span class="icon icon-sm icon-tan-hide fa fa-comment-o"></span><span>@question.Comments.Count</span></li>
+                        </ul>
+                        <ul class="post-meta pull-right">
+                            <li><span class="big text-blue-marguerite pull-right">@question.AnimalType.Description</span></li>
+                            <li><span class="big text-blue-marguerite pull-right">@question.Category.Description</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </blockquote>
+        </a>
+    }
+    
+</div>

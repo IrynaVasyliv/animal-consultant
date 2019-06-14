@@ -28,6 +28,5 @@ namespace AnimalConsultant.Services.Models
 
         public ICollection<Comments> Comments { get; set; }
         public ICollection<Reactions> Reactions { get; set; }
-        public List<IFormFile> Images { get; set; }
     }
 }

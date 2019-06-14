@@ -36,12 +36,26 @@ namespace AnimalConsultant.Generic
                     filters.Add(x=>x.CategoryId == filter.CategoryId);
                 }
 
+                if (filter.UserId != null)
+                {
+                    filters.Add(x=>x.UserId == filter.UserId);
+                }
+
                 return filters;
             },
                 mappingOverride: x=>x
                 .ForMember(s=>s.Image, opt=>opt.MapFrom(d=>string.Join(";", d.Image)))
                 .ReverseMap()
-                .ForMember(s=>s.Image, opt => opt.MapFrom(d => d.Image.Split(';', StringSplitOptions.None).ToList()))),
+                .ForMember(s=>s.Image, opt => opt.MapFrom(d => d.Image.Split(';', StringSplitOptions.None).ToList())),
+                getManyIncludes: new List<string>()
+                {
+                    nameof(D.Question.User),
+                    nameof(D.Question.AnimalType),
+                    nameof(D.Question.Category),
+                    nameof(D.Question.Comments) + "." + nameof(D.Question.User),
+
+                }),
+
             new GenericSetup<S.Ratings, D.Rating>(),
             new GenericSetup<S.Reactions, D.Reaction>(),
             new GenericSetup<S.Users, D.User>(

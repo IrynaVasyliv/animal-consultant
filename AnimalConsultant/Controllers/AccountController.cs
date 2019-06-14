@@ -53,13 +53,14 @@ namespace AnimalConsultant.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddQuestion(Questions question)
+        public async Task<IActionResult> AddQuestion([FromForm]Questions question)
         {
+            var request = HttpContext.Request;
             question.UserId = user.Id;
 
             question.AnimalTypeId = genericUser.Pets.FirstOrDefault(x => x.Id == question.PetId).AnimalTypeId;
             question.Image = new List<string>();
-            foreach (var formFile in question.Images)
+            foreach (var formFile in Request.Form.Files)
             {
                 question.Image.Add(formFile.Name);
             }

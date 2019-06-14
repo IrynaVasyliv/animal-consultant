@@ -1,4 +1,18 @@
-﻿<section class="section-md bg-white">
+﻿@using AnimalConsultant.Services.Models
+@using AnimalConsultant.Services.Models.Filters
+@using DemOffice.GenericCrud.DataAccess
+@using DemOffice.GenericCrud.Services
+@inject IReadOnlyGenericService<Questions, Questions, QuestionFilter> questionService;
+@{
+    var user = (Users) ViewBag.User;
+    var userQuestions = (await questionService.ReadList(new GetManyOptions<QuestionFilter>
+    {
+        Filter = new QuestionFilter() {UserId = user.Id}
+    })).Data;
+    var pets = user.Pets;
+}
+
+<section class="section-md bg-white">
     <div class="shell shell-wide">
         <div class="range">
 
@@ -19,13 +33,13 @@
                                     <div class="range range-sm-bottom spacing-20">
                                         <div class="cell-sm-3">
                                             <div class="form-group">
-                                                <input class="form-control form-control-has-validation input-value" id="contact-first-name" type="text" name="name" data-constraints="@@Required"><span class="form-validation"></span>
-                                                <label class="form-label rd-input-label" for="contact-first-name">First name</label>
+                                                <input class="form-control form-control-has-validation input-value" id="contact-first-name" value="@user.FirstName" type="text" name="name" data-constraints="@@Required"><span class="form-validation"></span>
+                                                <label class="form-label rd-input-label"  for="contact-first-name">First name</label>
                                             </div>
                                         </div>
                                         <div class="cell-sm-3">
                                             <div class="form-group">
-                                                <input class="form-control form-control-has-validation input-value" id="contact-last-name" type="text" name="lastname" data-constraints="@@Required"><span class="form-validation"></span>
+                                                <input class="form-control form-control-has-validation input-value" id="contact-last-name" value="@user.LastName" type="text" name="lastname" data-constraints="@@Required"><span class="form-validation"></span>
                                                 <label class="form-label rd-input-label" for="contact-last-name">Last name</label>
                                             </div>
                                         </div>
@@ -37,13 +51,13 @@
                                         </div>
                                         <div class="cell-sm-6">
                                             <div class="form-group">
-                                                <input class="form-control form-control-has-validation" id="contact-email" type="email" name="email" data-constraints="@@Email @@Required"><span class="form-validation"></span>
+                                                <input class="form-control form-control-has-validation" id="contact-email" type="email" value="@user.Email" name="email" data-constraints="@@Email @@Required"><span class="form-validation"></span>
                                                 <label class="form-label rd-input-label" for="contact-email">E-mail</label>
                                             </div>
                                         </div>
                                         <div class="cell-sm-6">
                                             <div class="form-group">
-                                                <div class="input-file-container">  
+                                                <div class="input-file-container">
                                                     <input class="input-file change-picture-input-file btn btn-tan-hide" id="my-file" type="file">
                                                     <label tabindex="0" for="my-file" class="input-file-trigger">Select image</label>
                                                 </div>
@@ -57,152 +71,10 @@
                                 </form>
                             </div>
                             <div class="tab-pane fade  @(ViewBag.ActiveTab == 2 ? "in active show" : "")" id="tabs-1-2">
-                                <div class="range spacing-30">
-                                    <div class="cell-sm-4">
-                                        <div class="thumbnail-boxed thumbnail-boxed-vertical">
-                                            <div class="thumbnail-boxed-left">
-                                                <img class="thumbnail-boxed-image" src="~/img/adopt-cats-5-370x240.jpg" alt="" width="370" height="240">
-                                            </div>
-                                            <div class="thumbnail-boxed-body">
-                                                <p class="thumbnail-boxed-title"><a href="single-page-pets.html">Lavender</a></p>
-                                                <div class="thumbnail-boxed-text">
-                                                    <p>This beautiful cat had health issues her family couldn’t take care of, so she came to us...</p>
-                                                </div>
-                                                <div class="thumbnail-boxed-footer">
-                                                    <ul class="thumbnail-boxed-meta">
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.1 years old</span></li>
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>7 pounds</span></li>
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cell-sm-4">
-                                        <div class="thumbnail-boxed thumbnail-boxed-vertical thumbnail-boxed-blue-marguerite">
-                                            <div class="thumbnail-boxed-left">
-                                                <img class="thumbnail-boxed-image" src="~/img/adopt-cats-2-370x240.jpg" alt="" width="370" height="240">
-                                            </div>
-                                            <div class="thumbnail-boxed-body">
-                                                <p class="thumbnail-boxed-title"><a href="single-page-pets.html">Lavender</a></p>
-                                                <div class="thumbnail-boxed-text">
-                                                    <p>This beautiful cat had health issues her family couldn’t take care of, so she came to us...</p>
-                                                </div>
-                                                <div class="thumbnail-boxed-footer">
-                                                    <ul class="thumbnail-boxed-meta">
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.1 years old</span></li>
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>7 pounds</span></li>
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cell-sm-4">
-                                        <div class="thumbnail-boxed thumbnail-boxed-vertical thumbnail-boxed-tan-hide">
-                                            <div class="thumbnail-boxed-left">
-                                                <img class="thumbnail-boxed-image" src="~/img/adopt-cats-3-370x240.jpg" alt="" width="370" height="240">
-                                            </div>
-                                            <div class="thumbnail-boxed-body">
-                                                <p class="thumbnail-boxed-title"><a href="single-page-pets.html">Lavender</a></p>
-                                                <div class="thumbnail-boxed-text">
-                                                    <p>This beautiful cat had health issues her family couldn’t take care of, so she came to us...</p>
-                                                </div>
-                                                <div class="thumbnail-boxed-footer">
-                                                    <ul class="thumbnail-boxed-meta">
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.1 years old</span></li>
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>7 pounds</span></li>
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cell-sm-4">
-                                        <div class="thumbnail-boxed thumbnail-boxed-vertical">
-                                            <div class="thumbnail-boxed-left">
-                                                <img class="thumbnail-boxed-image" src="~/img/adopt-cats-4-370x240.jpg" alt="" width="370" height="240">
-                                            </div>
-                                            <div class="thumbnail-boxed-body">
-                                                <p class="thumbnail-boxed-title"><a href="single-page-pets.html">Lavender</a></p>
-                                                <div class="thumbnail-boxed-text">
-                                                    <p>This beautiful cat had health issues her family couldn’t take care of, so she came to us...</p>
-                                                </div>
-                                                <div class="thumbnail-boxed-footer">
-                                                    <ul class="thumbnail-boxed-meta">
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.1 years old</span></li>
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>7 pounds</span></li>
-                                                        <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cell-sm-4">
-                                        <div class="col-decoration-skew-inner">
-                                            <h2>Add</h2>
-                                            <h5>more pets</h5>
-                                            <a class="btn btn-trout-inverse btn-effect-anis btn-offset-medium" href="@Url.Action("AddPet", "Account")">
-                                                <span class="icon icon-sm icon-tan-hide material-icons-add"></span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
+                                @Html.Partial("Pets/Pets", pets)
                             </div>
                             <div class="tab-pane fade @(ViewBag.ActiveTab == 3 ? "in active show" : "")" id="tabs-1-3">
-                                <div class="tab-questions text-center">
-                                    <a href="#" style="width: 100%; margin-top: 10px">
-                                        <blockquote class="quote-classic">
-                                            <div class="quote-classic-body">
-                                                <div class="quote-classic-header">
-                                                    <cite>Question question question question</cite>
-                                                    <p class="caption">answered by Levis Jordan</p>
-                                                </div>
-                                                <p class="quote-classic-text">
-                                                    <q>Delta is one of the most energetic and cheerful dogs I ever had! Thank you, Animal Shelter, for making my life more positive and happier!</q>
-                                                </p>
-                                                <div class="quote-classic-meta">
-                                                    <ul class="post-meta">
-                                                        <li>
-                                                            <span class="icon icon-sm icon-tan-hide material-icons-access_time"></span>
-                                                            <time datetime="2016-01-01">19 April 2016</time>
-                                                        </li>
-                                                        <li><span class="icon icon-sm icon icon-tan-hide fa fa-thumbs-up"></span><span>23</span></li>
-                                                        <li><span class="icon icon-sm icon-tan-hide fa fa-comment-o"></span><span>6</span></li>
-                                                    </ul>
-                                                    <ul class="post-meta pull-right">
-                                                        <li><span class="big text-blue-marguerite pull-right">Cats</span></li>
-                                                        <li><span class="big text-blue-marguerite pull-right">Health</span></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </blockquote>
-                                    </a>
-                                    <a href="#" style="width: 100%; margin-top: 10px">
-                                        <blockquote class="quote-classic">
-                                            <div class="quote-classic-body">
-                                                <div class="quote-classic-header">
-                                                    <cite>Question question question question</cite>
-                                                    <p class="caption">no answer yet</p>
-                                                </div>
-                                                <div class="quote-classic-meta">
-                                                    <ul class="post-meta">
-                                                        <li>
-                                                            <span class="icon icon-sm icon-tan-hide material-icons-access_time"></span>
-                                                            <time datetime="2016-01-01">19 April 2016</time>
-                                                        </li>
-                                                        <li><span class="icon icon-sm icon-tan-hide fa fa-thumbs-up"></span><span>23</span></li>
-                                                        <li><span class="icon icon-sm icon-tan-hide fa fa-comment-o"></span><span>6</span></li>
-                                                    </ul>
-                                                    <ul class="post-meta pull-right">
-                                                        <li><span class="big text-blue-marguerite pull-right">Cats</span></li>
-                                                        <li><span class="big text-blue-marguerite pull-right">Health</span></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </blockquote>
-                                    </a>
-                                </div>
+                               @Html.Partial("Question/QuestionsList", userQuestions)
                             </div>
                             <div class="tab-pane fade @(ViewBag.ActiveTab == 5 ? "in active show" : "")" id="tabs-1-5">
                                 <div class="comment-group">

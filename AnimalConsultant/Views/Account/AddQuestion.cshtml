@@ -2,9 +2,9 @@
 @using AnimalConsultant.Services.Models
 @using AnimalConsultant.Services.Models.Filters
 @using DemOffice.GenericCrud.Services
-@model Question
-@inject IGenericService<Question, Question, QuestionFilter> questionService;
-@inject IGenericService<User, User, object> userService;
+@model Questions
+@inject IGenericService<Questions, Questions, QuestionFilter> questionService;
+@inject IGenericService<Users, Users, object> userService;
 @inject IUserService specificUserService
 @{
     var userId = (await specificUserService.GetCurrentUserAsync()).Id;
