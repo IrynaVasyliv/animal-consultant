@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AnimalConsultant.Services.Models.Filters;
 using DemOffice.GenericCrud.Models;
 using D = AnimalConsultant.DAL.Models;
 using S = AnimalConsultant.Services.Models;
@@ -23,7 +24,19 @@ namespace AnimalConsultant.Generic
             new FilteredGenericSetup<S.Questions, D.Question, F.QuestionFilter>(
                 (filter, q, context) =>
             {
-                return new List<Expression<Func<D.Question, bool>>>();
+                var filters = new List<Expression<Func<D.Question, bool>>>();
+
+                if (filter.AnimalTypeId != null)
+                {
+                    filters.Add(x=>x.AnimalTypeId == filter.AnimalTypeId);
+                }
+
+                if (filter.CategoryId != null)
+                {
+                    filters.Add(x=>x.CategoryId == filter.CategoryId);
+                }
+
+                return filters;
             },
                 mappingOverride: x=>x
                 .ForMember(s=>s.Image, opt=>opt.MapFrom(d=>string.Join(";", d.Image)))

@@ -1,4 +1,16 @@
-﻿<section class="section-md bg-white">
+﻿@using AnimalConsultant.Services
+@using AnimalConsultant.Services.Models
+@using AnimalConsultant.Services.Models.Filters
+@using DemOffice.GenericCrud.Services
+@model Question
+@inject IGenericService<Question, Question, QuestionFilter> questionService;
+@inject IGenericService<User, User, object> userService;
+@inject IUserService specificUserService
+@{
+    var userId = (await specificUserService.GetCurrentUserAsync()).Id;
+    var user = await userService.Read(userId);
+}
+<section class="section-md bg-white">
     <div class="shell shell-wide">
         <div class="range">
 
@@ -10,7 +22,6 @@
                             <li><a href="#tabs-1-1" data-toggle="tab">Profile</a></li>
                             <li><a href="#tabs-1-2" data-toggle="tab">Pets</a></li>
                             <li class="active"><a href="#tabs-1-3" data-toggle="tab">Questions</a></li>
-                            <li><a href="#tabs-1-4" data-toggle="tab">Messages</a></li>
                             <li><a href="#tabs-1-5" data-toggle="tab">Reviews</a></li>
                         </ul>
                         <!-- Tab panes-->
@@ -153,10 +164,6 @@
                             <div class="tab-pane fade in active show" id="tabs-1-3">
                                 @Html.Partial("Question/QuestionCreateForm")
                             </div>
-                            <div class="tab-pane fade" id="tabs-1-4">
-                                <p>Welcome to our wonderful world. We sincerely hope that each and every user entering our website will find exactly what he/she is looking for. With advanced features of activating account and new login widgets, you will definitely have a great experience of using our web page. It will tell you lots of interesting things about our company, its products and services, highly professional staff and happy customers. Our site design and navigation has been thoroughly thought out. The layout is aesthetically appealing, contains concise texts in order not to take your precious time. Text styling allows scanning the pages quickly.</p>
-                                <p>Site navigation is extremely intuitive and user-friendly. You will always know where you are now and will be able to skip from one page to another with a single mouse click. We use only trusted, verified content, so you can believe every word we are saying. We are always happy to greet the new visitors on our site.</p>
-                            </div>
                             <div class="tab-pane fade" id="tabs-1-5">
                                 <div class="comment-group">
                                     <!-- Comment-->
@@ -267,23 +274,6 @@
             </div>
             <div class="col-md-4">
                 <div class="grid-element bg-gray-light">
-                    @*<img class="img-responsive" src="~/img/gift-online-1-370x272.jpg" />
-                        <div class="thumbnail-boxed-body">
-                            <p class="thumbnail-boxed-title">
-                                <a href="single-page-pets.html">Lavender</a>
-                            </p>
-                            <div class="thumbnail-boxed-text">
-                                <p>This beautiful cat had health issues her family couldn’t take care of, so she came to us...</p>
-                            </div>
-                            <div class="thumbnail-boxed-footer">
-                                <ul class="thumbnail-boxed-meta">
-                                    <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.1 years old</span></li>
-                                    <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>7 pounds</span></li>
-                                    <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
-                                </ul>
-                            </div>
-                        </div>*@
-
                     <blockquote class="quote-circle">
                         <div class="unit unit-xs-horizontal">
                             <div class="unit-left">
