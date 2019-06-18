@@ -21,5 +21,6 @@ namespace AnimalConsultant.Services.Models
         public ICollection<Ratings> OutcomingRatings { get; set; }
         public ICollection<Reactions> Reactions { get; set; }
         public ICollection<Pets> Pets { get; set; }
+        public ICollection<Articles> Articles { get; set; }
     }
 }

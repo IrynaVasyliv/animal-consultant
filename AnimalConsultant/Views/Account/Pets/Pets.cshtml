@@ -3,15 +3,25 @@
     List<string> classes = new List<string> { "", "thumbnail-boxed-blue-marguerite", "thumbnail-boxed-tan-hide" };
 }
 <div class="range spacing-30">
+    <div class="cell-sm-4">
+        <div class="col-decoration-skew-inner">
+            <h2>Add</h2>
+            <h5>more pets</h5>
+            <a class="btn btn-trout-inverse btn-effect-anis btn-offset-medium" href="@Url.Action("AddPet", "Account")">
+                <span class="icon icon-sm icon-tan-hide material-icons-add"></span>
+            </a>
+        </div>
+    </div>
     @for (int i = 0; i < Model.Count(); i++)
     {
         <div class="cell-sm-4">
-            <div class="thumbnail-boxed thumbnail-boxed-vertical @classes[i%3]">
+            <div class="thumbnail-boxed thumbnail-boxed-vertical @classes[i % 3]">
                 <div class="thumbnail-boxed-left">
-                    <img class="thumbnail-boxed-image" src="~/img/@(Model[i].Image)" alt="" width="370" height="240">
+                    <img class="thumbnail-boxed-image" src="~/img/@(Model[i].Image ?? "output-onlinepngtools.png") " alt="" width="370" height="240">
                 </div>
                 <div class="thumbnail-boxed-body">
-                    <p class="thumbnail-boxed-title"><a href="single-page-pets.html">@(Model[i].Name)</a></p>
+                    <p class="thumbnail-boxed-title"><a href="single-page-pets.html">@(Model[i].Name)</a>
+                    </p>
                     <div class="thumbnail-boxed-text">
                         <p>This beautiful cat had health issues her family couldn’t take care of, so she came to us...</p>
                     </div>
@@ -27,13 +37,5 @@
         </div>
     }
 
-    <div class="cell-sm-4">
-        <div class="col-decoration-skew-inner">
-            <h2>Add</h2>
-            <h5>more pets</h5>
-            <a class="btn btn-trout-inverse btn-effect-anis btn-offset-medium" href="@Url.Action("AddPet", "Account")">
-                <span class="icon icon-sm icon-tan-hide material-icons-add"></span>
-            </a>
-        </div>
-    </div>
+
 </div>

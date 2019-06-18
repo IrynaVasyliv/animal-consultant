@@ -1,12 +1,14 @@
 ﻿@using AnimalConsultant.DAL.Models
 @using AnimalConsultant.DAL.Models.Identity
 @using AnimalConsultant.Services.Models
+@using AnimalConsultant.Services.Models.Filters
 @using DemOffice.GenericCrud.DataAccess
 @using DemOffice.GenericCrud.Services
 @model IEnumerable<AnimalConsultant.Services.Models.Questions>
 @inject IReadOnlyGenericService<AnimalTypes, AnimalTypes, object> animalService
 @inject IReadOnlyGenericService<Categories, Categories, object> categoryService
 @{
+    var filter = (QuestionFilter)ViewBag.Filter;
     var animals = (await animalService.ReadList(new GetManyOptions<object>())).Data;
     var categories = (await categoryService.ReadList(new GetManyOptions<object>())).Data;
 }
@@ -25,43 +27,43 @@
                 <div class="tab-questions text-center">
                     @foreach (var question in Model)
                     {
-                        <a asp-controller="Forum" asp-action="Question" asp-route-id="@question.Id">
-                            <blockquote class="quote-classic">
-                                <div class="quote-classic-left">
-                                    <img class="quote-classic-image" src="~/img/home/home1-11-237x268.jpg" alt="" width="280" height="320">
-                                </div>
-                                <div class="quote-classic-body">
-                                    <div class="quote-classic-header">
+                        <blockquote class="quote-classic w-100">
+                            <div class="quote-classic-left">
+                                <img class="quote-classic-image" src="~/img/@(question.User.Image ?? "aqua-paw-print-md.png")" alt="" width="280" height="320">
+                            </div>
+                            <div class="quote-classic-body">
+                                <div class="quote-classic-header">
+                                    <a href="@Url.Action("Question", "Forum", new {id = question.Id})" style="width: 100%; margin-top: 10px">
                                         <cite>@question.Content</cite>
-                                        @{
-                                            var answer = question.Comments.Where(x => x.User.Role == nameof(Roles.Vet)).OrderBy(x => x.Rating).LastOrDefault();
-                                        }
-                                        <p class="caption"> @(answer == null ? "no answer" : $"answered by { answer.User.FirstName } {answer.User.LastName}")</p>
-                                    </div>
-                                    <p class="quote-classic-text">
-                                        <q>@(answer == null ? string.Empty : answer.Content)</q>
-                                    </p>
-                                    <div class="quote-classic-meta">
-                                        <ul class="post-meta">
-                                            <li>
-                                                <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
-                                                <time datetime="2016-01-01">@question.CreateDate.ToString("dd MMMM yyyy")</time>
-                                            </li>
-                                            <li><span class="icon icon-xs icon-tan-hide fa fa-thumbs-up"></span><span>@question.Reactions.Count(x => x.Liked)</span></li>
-                                            <li><span class="icon icon-xs icon-tan-hide fa fa-comment-o"></span><span>@question.Comments.Count</span></li>
-                                        </ul>
-                                        <ul class="post-meta">
-                                            <li>
-                                                <span class="big text-blue-marguerite">@question.AnimalType.Description</span>
-                                            </li>
-                                            <li>
-                                                <span class="big text-blue-marguerite">@question.Category.Description</span>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    </a>
+                                    @{
+                                        var answer = question.Comments.Where(x => x.User.Role == nameof(Roles.Vet)).OrderBy(x => x.Rating).LastOrDefault();
+                                    }
+                                    <p class="caption"> @(answer == null ? "no answer" : $"answered by { answer.User.FirstName } {answer.User.LastName}")</p>
                                 </div>
-                            </blockquote>
-                        </a>
+                                <p class="quote-classic-text">
+                                    <q>@(answer == null ? string.Empty : answer.Content)</q>
+                                </p>
+                                <div class="quote-classic-meta">
+                                    <ul class="post-meta">
+                                        <li>
+                                            <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
+                                            <time datetime="2016-01-01">@question.CreateDate.ToString("dd MMMM yyyy")</time>
+                                        </li>
+                                        <li><span class="icon icon-xs icon-tan-hide fa fa-thumbs-up"></span><span>@question.Reactions.Count(x => x.Liked)</span></li>
+                                        <li><span class="icon icon-xs icon-tan-hide fa fa-comment-o"></span><span>@question.Comments.Count</span></li>
+                                    </ul>
+                                    <ul class="post-meta">
+                                        <li>
+                                            <span class="big text-blue-marguerite">@question.AnimalType.Description</span>
+                                        </li>
+                                        <li>
+                                            <span class="big text-blue-marguerite">@question.Category.Description</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </blockquote>
                     }
                     <a class="btn btn-circle btn-silver-outline btn-shadow block-centered">SHOW MORE</a>
                 </div>
@@ -69,9 +71,9 @@
             <div class="col-md-4">
                 <form class="rd-search form-sm search-form-classic" action="@Url.Action("Index", "Forum")" method="GET">
                     <div class="form-group">
-                        <input class="form-control form-control-square" id="rd-search-form-input" type="text" name="s" autocomplete="off">
+                        <input class="form-control form-control-square" id="rd-search-form-input" type="text" value="@ViewBag.Q" name="s" autocomplete="off">
                         <label class="form-label rd-input-label" for="rd-search-form-input">Search...</label>
-                        <button class="rd-search-submit" type="submit"></button>
+                        <button class="rd-search-submit search-filter" type="submit"></button>
                     </div>
                     <div class="panel-group panel-group-custom panel-group-corporate" id="accordion1" role="tablist" aria-multiselectable="true">
                         <h2>Filters</h2>
@@ -79,7 +81,7 @@
                         <div class="panel panel-custom panel-corporate">
                             <div class="panel-heading" id="accordion1Heading1" role="tab">
                                 <div class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion1" aria-controls="accordion1Collapse1" aria-expanded="false" class="collapsed">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion1" href="https://livedemo00.template-help.com/wt_61279/host-your-own-fundraiser.html#accordion1Collapse1" aria-controls="accordion1Collapse1" aria-expanded="false" class="collapsed">
                                         Types of animal
                                         <div class="panel-arrow"></div>
                                     </a>
@@ -90,9 +92,8 @@
                                 <div class="panel-body">
                                     @foreach (var animal in animals)
                                     {
-                                        <div class="btn btn-sm btn-silver-outline" style="margin-top: 2px">@animal.Description</div>
+                                        <div class="btn btn-sm @(filter.AnimalTypeId != null && filter.AnimalTypeId.Contains(animal.Id) ? "btn-primary" : "btn-silver-outline") animal-filter" data-value="@animal.Id" style="margin-top: 2px">@animal.Description</div>
                                     }
-                                    
                                 </div>
                             </div>
                         </div>
@@ -100,7 +101,7 @@
                         <div class="panel panel-custom panel-corporate">
                             <div class="panel-heading" id="accordion1Heading2" role="tab">
                                 <div class="panel-title">
-                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" aria-controls="accordion1Collapse2" aria-expanded="false">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion1" href="https://livedemo00.template-help.com/wt_61279/host-your-own-fundraiser.html#accordion1Collapse2" aria-controls="accordion1Collapse2" aria-expanded="false">
                                         Categories
                                         <div class="panel-arrow"></div>
                                     </a>
@@ -110,7 +111,7 @@
                                 <div class="panel-body">
                                     @foreach (var category in categories)
                                     {
-                                        <div class="btn btn-sm btn-primary" style="margin-top: 2px">@category.Description</div>
+                                        <div class="btn btn-sm btn-silver-outline @(filter.CategoryId != null && filter.CategoryId.Contains(category.Id) ? "btn-primary" : "btn-silver-outline") category-filter" data-value="@category.Id" style="margin-top: 2px">@category.Description</div>
                                     }
                                 </div>
                             </div>

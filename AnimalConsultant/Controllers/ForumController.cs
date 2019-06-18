@@ -39,12 +39,16 @@ namespace AnimalConsultant.Controllers
                 Filter = filter,
                 SearchQuery = searchQuery
             });
+            ViewBag.Filter = filter;
+            ViewBag.Q = searchQuery;
             return View(questions.Data.OrderBy(x=>x.Rating).ToList());
         }
 
-        public async Task<IActionResult> Question([FromQuery]long id)
+        [Route("forum/question/{id}")]
+        public async Task<IActionResult> Question(long id)
         {
-            return View(await _questionService.Read(id));
+            var question = await _questionService.Read(id);
+            return View(question);
         }
     }
 }

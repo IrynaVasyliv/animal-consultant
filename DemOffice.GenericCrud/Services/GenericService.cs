@@ -70,7 +70,7 @@ namespace DemOffice.GenericCrud.Services
         /// <summary>Creates the specified item.</summary>
         /// <param name="item">The item.</param>
         /// <returns>TModel.</returns>
-        public async Task<TModel> Create(TModel item)
+        public virtual async Task<TModel> Create(TModel item)
         {
             var result = await _repository.Create(Mapper.Map<TModel, TDalModel>(item));
             return Mapper.Map<TDalModel, TModel>(result);
@@ -79,7 +79,7 @@ namespace DemOffice.GenericCrud.Services
         /// <summary>Updates the specified item.</summary>
         /// <param name="item">The item.</param>
         /// <returns>TModel.</returns>
-        public async Task<TModel> Update(TModel item)
+        public virtual async Task<TModel> Update(TModel item)
         {
             var id = (long)item.GetType().GetProperty("Id").GetValue(item, null);
 
@@ -94,7 +94,7 @@ namespace DemOffice.GenericCrud.Services
         /// <summary>Deletes the specified identifier.</summary>
         /// <param name="id">The identifier.</param>
         /// <returns>Task.</returns>
-        public async Task Delete(long id)
+        public virtual async Task Delete(long id)
         {
             await _repository.Delete(id);
         }

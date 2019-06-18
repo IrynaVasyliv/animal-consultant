@@ -1,117 +1,153 @@
-﻿<section>
-    <div class="section-md section-md-alternate bg-white text-center">
+﻿@using AnimalConsultant.Services.Models
+@using AnimalConsultant.Services.Models.Filters
+@using DemOffice.GenericCrud.DataAccess
+@using DemOffice.GenericCrud.Services
+@inject IReadOnlyGenericService<Questions, Questions, QuestionFilter> questionService;
+@{
+    var user = (Users)ViewBag.User;
+    var userQuestions = (await questionService.ReadList(new GetManyOptions<QuestionFilter>
+    {
+        Filter = new QuestionFilter() { UserId = user.Id }
+    })).Data;
+    var articles = user.Articles;
+}
 
-        <div class="container-fullwidth grid-system-outline">
-            <div class="col-xs-8">
+<section class="section-md bg-white">
+    <div class="shell shell-wide">
+        <div class="range">
+
+            <div class="col-md-8">
                 <div class="grid-element">
-                    <div class="tabs-custom tabs-horizontal tabs-corporate" id="tabs-1">
+                    <div class="tabs-custom tabs-horizontal tabs-line tabs-centered" id="tabs-1">
                         <!-- Nav tabs-->
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tabs-1-1" data-toggle="tab">Tab 1</a></li>
-                            <li><a href="#tabs-1-2" data-toggle="tab">Публікації</a></li>
-                            <li><a href="#tabs-1-3" data-toggle="tab">Відгуки</a></li>
-                            <li><a href="#tabs-1-4" data-toggle="tab">Tab 4</a></li>
+                            <li class="@(ViewBag.ActiveTab == null || ViewBag.ActiveTab == 1 ? "active" : "")"><a href="#tabs-1-1" aria-expanded="@(ViewBag.ActiveTab == null || ViewBag.ActiveTab == 1)" data-toggle="tab">Profile</a></li>
+                            <li class="@(ViewBag.ActiveTab == 2 ? "active" : "")"><a href="#tabs-1-2" aria-expanded="@(ViewBag.ActiveTab == 2)" data-toggle="tab">Pets</a></li>
+                            <li class="@(ViewBag.ActiveTab == 3 ? "active" : "")"><a href="#tabs-1-3" aria-expanded="@(ViewBag.ActiveTab == 3)" data-toggle="tab">Questions</a></li>
+                            <li class="@(ViewBag.ActiveTab == 5 ? "active" : "")"><a href="#tabs-1-5" aria-expanded="@(ViewBag.ActiveTab == 5)" data-toggle="tab">Reviews</a></li>
                         </ul>
                         <!-- Tab panes-->
                         <div class="tab-content">
-                            <div class="tab-pane fade in active" id="tabs-1-1">
-                                <p>Welcome to our wonderful world. We sincerely hope that each and every user entering our website will find exactly what he/she is looking for. With advanced features of activating account and new login widgets, you will definitely have a great experience of using our web page. It will tell you lots of interesting things about our company, its products and services, highly professional staff and happy customers. Our site design and navigation has been thoroughly thought out. The layout is aesthetically appealing, contains concise texts in order not to take your precious time. Text styling allows scanning the pages quickly.</p>
-                                <p>Site navigation is extremely intuitive and user-friendly. You will always know where you are now and will be able to skip from one page to another with a single mouse click. We use only trusted, verified content, so you can believe every word we are saying. We are always happy to greet the new visitors on our site.</p>
+                            <div class="tab-pane fade" id="tabs-1-1">
+                                <form asp-controller="Account" asp-action="UpdateAccount" class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" novalidate="novalidate">
+                                    <div class="range range-sm-bottom spacing-20">
+                                        <div class="cell-sm-3">
+                                            <div class="form-group">
+                                                <input class="form-control form-control-has-validation input-value" id="contact-first-name" value="@user.FirstName" type="text" name="name" data-constraints="@@Required"><span class="form-validation"></span>
+                                                <label class="form-label rd-input-label" for="contact-first-name">First name</label>
+                                            </div>
+                                        </div>
+                                        <div class="cell-sm-3">
+                                            <div class="form-group">
+                                                <input class="form-control form-control-has-validation input-value" id="contact-last-name" value="@user.LastName" type="text" name="lastname" data-constraints="@@Required"><span class="form-validation"></span>
+                                                <label class="form-label rd-input-label" for="contact-last-name">Last name</label>
+                                            </div>
+                                        </div>
+                                        <div class="cell-sm-6">
+                                            <div class="form-group">
+                                                <input class="form-control form-control-has-validation input-value" id="contact-phone" type="text" name="phone"><span class="form-validation"></span>
+                                                <label class="form-label rd-input-label" for="contact-phone">Phone</label>
+                                            </div>
+                                        </div>
+                                        <select class="" data-placeholder="Choose pets to treat" name="tags[]" multiple>
+                                            <option value="Engineering">Engineering</option>
+                                            <option value="Carpentry">Carpentry</option>
+                                            <option value="Plumbing">Plumbing</option>
+                                            <option value="Electical">Electrical</option>
+                                            <option value="Mechanical">Mechanical</option>
+                                            <option value="HVAC">HVAC</option>
+                                        </select>
+                                        <select class="" data-placeholder="Choose pets to treat" name="tags[]" multiple>
+                                            <option value="Engineering">Engineering</option>
+                                            <option value="Carpentry">Carpentry</option>
+                                            <option value="Plumbing">Plumbing</option>
+                                            <option value="Electical">Electrical</option>
+                                            <option value="Mechanical">Mechanical</option>
+                                            <option value="HVAC">HVAC</option>
+                                        </select>
+                                        <div class="cell-sm-6">
+                                            <div class="form-group">
+                                                <input class="form-control form-control-has-validation" id="contact-email" type="email" value="@user.Email" name="email" data-constraints="@@Email @@Required"><span class="form-validation"></span>
+                                                <label class="form-label rd-input-label" for="contact-email">E-mail</label>
+                                            </div>
+                                        </div>
+                                        <div class="cell-sm-6">
+                                            <div class="form-group">
+                                                <input class="form-control form-control-has-validation" id="categories" name="categories" data-constraints="@@Required"><span class="form-validation"></span>
+                                                <label class="form-label rd-input-label" for="categories">Select categories you are good at</label>
+                                            </div>
+                                        </div>
+                                        <div class="cell-sm-6">
+                                            <div class="form-group">
+                                                <div class="input-file-container">
+                                                    <input class="input-file change-picture-input-file btn btn-tan-hide" id="my-file" type="file">
+                                                    <label tabindex="0" for="my-file" class="input-file-trigger">Select image</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cell-sm-6">
+                                            <div class="form-group">
+                                                <div class="input-file-container">
+                                                    <input class="input-file change-picture-input-file btn btn-tan-hide" id="my-file" type="file">
+                                                    <label tabindex="0" for="my-file" class="input-file-trigger">Select image</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="cell-xs-12">
+                                            <button class="btn btn-tan-hide pull-right btn-effect-ujarak" type="submit">Save</button>
+                                        </div>
+
+                                    </div>
+                                </form>
                             </div>
                             <div class="tab-pane fade" id="tabs-1-2">
+                                @*@Html.Partial("Pets/Pets", articles)*@
                                 <div class="range spacing-30">
-                                    <div class="cell-sm-4">
-                                        <!-- Post boxed-->
-                                        <article class="post-boxed">
-                                            <img class="post-boxed-image" src="images/news-1-570x333.jpg" alt="" width="570" height="333">
-                                            <div class="post-boxed-body">
-                                                <p class="post-boxed-title">
-                                                    <a href="single-post.html">Wellness Care Plans for Your Pets and Their Benefits</a>
-                                                </p>
-                                                <div class="post-boxed-text">
-                                                    <p>Have you ever considered enrolling your pet in a wellness care plan? These plans are quickly gaining popularity, and with good reason...</p>
-                                                </div>
-                                                <div class="post-boxed-footer">
-                                                    <ul class="post-meta">
-                                                        <li>
-                                                            <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
-                                                            <time datetime="2016-01-01">16 February 2016</time>
-                                                        </li>
-                                                        <li><span class="icon icon-xs icon-tan-hide mdi mdi-thumb-up"></span><span>26</span></li>
-                                                        <li><a href="single-post.html"><span class="icon icon-xs icon-tan-hide mdi mdi-comment-outline"></span><span>6</span></a></li>
-                                                    </ul>
+                                    <div class="cell-sm-6">
+                                        <div class="col-decoration-skew-inner">
+                                            <h2>Add</h2>
+                                            <h5>more posts</h5>
+                                            <a class="btn btn-trout-inverse btn-effect-anis btn-offset-medium" href="@Url.Action("AddPet", "Account")">
+                                                <span class="icon icon-sm icon-tan-hide material-icons-add"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="cell-sm-6">
+                                        <article class="post-news">
+                                            <div class="post-news-image"><img src="images/home2-6-568x268.jpg" alt="" width="568" height="268">
+                                            </div>
+                                            <div class="post-news-body">
+                                                <div class="unit unit-horizontal">
+                                                    <div class="unit-left">
+                                                        <time class="post-news-time" datetime="2016-01-01"><span class="big">25</span><span class="small">April</span></time>
+                                                    </div>
+                                                    <div class="unit-body">
+                                                        <p class="post-news-title"><a href="single-post.html">Wellness Care Plans for Your Pets</a>
+                                                        </p>
+                                                        <div class="post-news-text">
+                                                            <p>Have you ever considered enrolling your pet in a wellness care plan? These plans are quickly gaining popularity, and with good reason...</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </article>
                                     </div>
-                                    <div class="cell-sm-4">
-                                        <!-- Post boxed-->
-                                        <article class="post-boxed post-boxed-blue-marguerite">
-                                            <img class="post-boxed-image" src="images/news-2-570x333.jpg" alt="" width="570" height="333">
-                                            <div class="post-boxed-body">
-                                                <p class="post-boxed-title">
-                                                    <a href="single-post.html">Top 5 Most Affectionate Cats for You and Your Family</a>
-                                                </p>
-                                                <div class="post-boxed-text">
-                                                    <p>Contrary to popular belief, not all cats are the epitome of indifference. Some cat breeds are among the most affectionate and loving pets...</p>
-                                                </div>
-                                                <div class="post-boxed-footer">
-                                                    <ul class="post-meta">
-                                                        <li>
-                                                            <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
-                                                            <time datetime="2016-01-01">17 February 2016</time>
-                                                        </li>
-                                                        <li><span class="icon icon-xs icon-tan-hide mdi mdi-thumb-up"></span><span>29</span></li>
-                                                        <li><a href="single-post.html"><span class="icon icon-xs icon-tan-hide mdi mdi-comment-outline"></span><span>5</span></a></li>
-                                                    </ul>
-                                                </div>
+                                    <div class="cell-sm-6">
+                                        <article class="post-news">
+                                            <div class="post-news-image"><img src="images/home2-6-568x268.jpg" alt="" width="568" height="268">
                                             </div>
-                                        </article>
-                                    </div>
-                                    <div class="cell-sm-4">
-                                        <!-- Post boxed-->
-                                        <article class="post-boxed post-boxed-tan-hide">
-                                            <img class="post-boxed-image" src="images/news-3-570x333.jpg" alt="" width="570" height="333">
-                                            <div class="post-boxed-body">
-                                                <p class="post-boxed-title">
-                                                    <a href="single-post.html">How Cats Can Improve Your Human Relationships</a>
-                                                </p>
-                                                <div class="post-boxed-text">
-                                                    <p>In the past we’ve written about the effect cats have on humans. Today’s post takes this concept a step further. Here we are going to discuss how cats...</p>
-                                                </div>
-                                                <div class="post-boxed-footer">
-                                                    <ul class="post-meta">
-                                                        <li>
-                                                            <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
-                                                            <time datetime="2016-01-01">18 February 2016</time>
-                                                        </li>
-                                                        <li><span class="icon icon-xs icon-tan-hide mdi mdi-thumb-up"></span><span>50</span></li>
-                                                        <li><a href="single-post.html"><span class="icon icon-xs icon-tan-hide mdi mdi-comment-outline"></span><span>8</span></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </article>
-                                    </div>
-                                    <div class="cell-sm-4">
-                                        <!-- Post boxed-->
-                                        <article class="post-boxed">
-                                            <img class="post-boxed-image" src="images/news-4-570x333.jpg" alt="" width="570" height="333">
-                                            <div class="post-boxed-body">
-                                                <p class="post-boxed-title">
-                                                    <a href="single-post.html">Top 4 Dog Breeds You Can Easily Take to Work</a>
-                                                </p>
-                                                <div class="post-boxed-text">
-                                                    <p>A dog in the workplace provides many positive benefits. However, before you decide to bring your dog to work with you check your company policies...</p>
-                                                </div>
-                                                <div class="post-boxed-footer">
-                                                    <ul class="post-meta">
-                                                        <li>
-                                                            <span class="icon icon-xs icon-tan-hide material-icons-access_time"></span>
-                                                            <time datetime="2016-01-01">19 February 2016</time>
-                                                        </li>
-                                                        <li><span class="icon icon-xs icon-tan-hide mdi mdi-thumb-up"></span><span>60</span></li>
-                                                        <li><a href="single-post.html"><span class="icon icon-xs icon-tan-hide mdi mdi-comment-outline"></span><span>9</span></a></li>
-                                                    </ul>
+                                            <div class="post-news-body">
+                                                <div class="unit unit-horizontal">
+                                                    <div class="unit-left">
+                                                        <time class="post-news-time" datetime="2016-01-01"><span class="big">25</span><span class="small">April</span></time>
+                                                    </div>
+                                                    <div class="unit-body">
+                                                        <p class="post-news-title"><a href="single-post.html">Wellness Care Plans for Your Pets</a>
+                                                        </p>
+                                                        <div class="post-news-text">
+                                                            <p>Have you ever considered enrolling your pet in a wellness care plan? These plans are quickly gaining popularity, and with good reason...</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </article>
@@ -119,6 +155,9 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="tabs-1-3">
+                                @Html.Partial("Question/QuestionsList", userQuestions)
+                            </div>
+                            <div class="tab-pane fade" id="tabs-1-5">
                                 <div class="comment-group">
                                     <!-- Comment-->
                                     <article class="comment">
@@ -133,18 +172,12 @@
                                                 <p>Thank you for your article, I think it can be very useful to volunteers of Animal Shelter.</p>
                                             </div>
                                             <div class="comment-footer">
-                                                <div class="comment-footer">
-                                                    <div class="likes">
-                                                        <div class="like grow">
-                                                            <i class="fa fa-thumbs-up fa-2x" aria-hidden="true"></i>
-                                                            <span class="likes-count">0</span>
-                                                        </div>
-                                                        <!-- Thumbs down -->
-                                                        <div class="dislike grow">
-                                                            <i class="fa fa-thumbs-down fa-2x" aria-hidden="true"></i>
-                                                            <span class="dislikes-count">0</span>
-                                                        </div>
-                                                    </div>
+                                                <div class="starcommentrating d-flex justify-content-end flex-row-reverse">
+                                                    <input type="radio" id="star20" name="rating4" value="5" disabled checked /><label for="star15" title="5 star"></label>
+                                                    <input type="radio" id="star19" name="rating4" value="4" disabled /><label for="star14" title="4 star"></label>
+                                                    <input type="radio" id="star18" name="rating4" value="3" disabled /><label for="star13" title="3 star"></label>
+                                                    <input type="radio" id="star17" name="rating4" value="2" disabled /><label for="star12" title="2 star"></label>
+                                                    <input type="radio" id="star16" name="rating4" value="1" disabled /><label for="star11" title="1 star"></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -170,17 +203,6 @@
                                                     <input type="radio" id="star13" name="rating3" value="3" disabled /><label for="star13" title="3 star"></label>
                                                     <input type="radio" id="star12" name="rating3" value="2" disabled /><label for="star12" title="2 star"></label>
                                                     <input type="radio" id="star11" name="rating3" value="1" disabled /><label for="star11" title="1 star"></label>
-                                                </div>
-                                                <div class="likes">
-                                                    <div class="like grow">
-                                                        <i class="fa fa-thumbs-up fa-2x" aria-hidden="true"></i>
-                                                        <span class="likes-count">0</span>
-                                                    </div>
-                                                    <!-- Thumbs down -->
-                                                    <div class="dislike grow">
-                                                        <i class="fa fa-thumbs-down fa-2x" aria-hidden="true"></i>
-                                                        <span class="dislikes-count">0</span>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -239,38 +261,62 @@
                                 </form>
 
                             </div>
-                            <div class="tab-pane fade" id="tabs-1-4">
-                                <p>Welcome to our wonderful world. We sincerely hope that each and every user entering our website will find exactly what he/she is looking for. With advanced features of activating account and new login widgets, you will definitely have a great experience of using our web page. It will tell you lots of interesting things about our company, its products and services, highly professional staff and happy customers. Our site design and navigation has been thoroughly thought out. The layout is aesthetically appealing, contains concise texts in order not to take your precious time. Text styling allows scanning the pages quickly.</p>
-                                <p>Site navigation is extremely intuitive and user-friendly. You will always know where you are now and will be able to skip from one page to another with a single mouse click. We use only trusted, verified content, so you can believe every word we are saying. We are always happy to greet the new visitors on our site.</p>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-4">
+            <div class="col-md-4">
                 <div class="grid-element bg-gray-light">
-                    <img class="img-responsive" src="~/img/gift-online-1-370x272.jpg" />
-                    <div class="thumbnail-boxed-body">
-                        <p class="thumbnail-boxed-title">
-                            <a href="single-page-pets.html">Lavender</a>
-                        </p>
-                        <div class="thumbnail-boxed-text">
-                            <p>This beautiful cat had health issues her family couldn’t take care of, so she came to us...</p>
+                    @*<img class="img-responsive" src="~/img/gift-online-1-370x272.jpg" />
+                        <div class="thumbnail-boxed-body">
+                            <p class="thumbnail-boxed-title">
+                                <a href="single-page-pets.html">Lavender</a>
+                            </p>
+                            <div class="thumbnail-boxed-text">
+                                <p>This beautiful cat had health issues her family couldn’t take care of, so she came to us...</p>
+                            </div>
+                            <div class="thumbnail-boxed-footer">
+                                <ul class="thumbnail-boxed-meta">
+                                    <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.1 years old</span></li>
+                                    <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>7 pounds</span></li>
+                                    <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
+                                </ul>
+                            </div>
+                        </div>*@
+
+                    <blockquote class="quote-circle">
+                        <div class="unit unit-xs-horizontal">
+                            <div class="unit-left">
+                                <div class="quote-circle-image">
+                                    <img class="file-input-replace" src="~/img/@(user.Image ?? "grey-paw-print-hi.png")" alt="" width="100" height="320" style="min-height: 101%; min-width: 101%">
+                                </div>
+                            </div>
+                            <div class="unit-body">
+                                <div class="quote-circle-body">
+                                    <div class="quote-circle-header">
+                                        <cite class="name">@user.FirstName</cite>
+                                        <cite class="lastname">@user.LastName</cite>
+                                    </div>
+                                    <p class="quote-circle-text">
+                                        <q>When I saw her picture on the site, I knew she had found her home.  She is a non-shedding bundle of cuteness  affectionately known as ‘Lex”.</q>
+                                    </p>
+                                    <div class="quote-circle-meta">
+                                        <ul class="quote-circle-meta-list">
+                                            <li class="object-inline"><span class="icon icon-sm icon-primary-filled icon-circle mdi mdi-thumb-up-outline"></span><span class="phone">+38 (063) 9661289</span></li>
+                                            <li><span>@user.Email</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="thumbnail-boxed-footer">
-                            <ul class="thumbnail-boxed-meta">
-                                <li><span class="icon icon-xs icon-tan-hide material-icons-event_available"></span><span>2.1 years old</span></li>
-                                <li><span class="icon icon-xs icon-tan-hide material-icons-done"></span><span>7 pounds</span></li>
-                                <li><span class="icon icon-xs icon-tan-hide material-icons-place"></span><span>New York</span></li>
-                            </ul>
-                        </div>
-                    </div>
+                    </blockquote>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<partial name="~/Views/Shared/_Footer.cshtml" />
+
+
 @section SnackBars
     {
     <div class="snackbars" id="form-output-global">

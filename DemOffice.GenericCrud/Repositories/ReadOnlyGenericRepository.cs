@@ -131,7 +131,7 @@ namespace DemOffice.GenericCrud.Repositories
         /// <returns>TDalModel.</returns>
         public async Task<TDalModel> FirstOrDefault(Expression<Func<TDalModel, bool>> filter)
         {
-            var dbSet = GetIncludedDbSet(Includes);
+            var dbSet = GetIncludedDbSet(Includes).AsNoTracking();
 
             return await dbSet.FirstOrDefaultAsync(filter);
         }
@@ -148,7 +148,7 @@ namespace DemOffice.GenericCrud.Repositories
             var result = new GetQueryableResult<TDalModel>
             {
                 TotalCount = await dbSet.CountAsync(),
-                Data = dbSet.GetByIds(ids)
+                Data = dbSet.AsNoTracking().GetByIds(ids)
             };
 
             return result;
@@ -164,7 +164,7 @@ namespace DemOffice.GenericCrud.Repositories
             GetManyOptions options,
             ICollection<Expression<Func<TDalModel, bool>>> filters)
         {
-            var dbSet = GetIncludedDbSet(GetManyIncludes);
+            var dbSet = GetIncludedDbSet(GetManyIncludes).AsNoTracking();
 
             dbSet = filters.OrEmptyIfNull().Aggregate(dbSet, (current, filter) => current.Where(filter));
 

@@ -1,0 +1,38 @@
+﻿@using AnimalConsultant.Services.Models
+@using Microsoft.AspNet.Identity
+@model AnimalConsultant.Services.Models.Comments
+
+<div class="comment-group">
+    <!-- Comment-->
+    <article class="comment">
+        <div class="comment-avatar">
+            <img src="~/img/@(Model.User.Image ?? "grey-paw-print-hi.png")" alt="" width="80" height="80">
+        </div>
+        <div class="comment-body">
+            <div class="comment-header">
+                <p class="comment-title">@Model.User.FirstName @Model.User.LastName</p>
+                <span class="comment-time">
+                    @((Model.CreateDate - DateTime.Now).Days == 0 ? "today" : ((Model.CreateDate - DateTime.Now).Days == 1 ? "tomorrow" : (Model.CreateDate - DateTime.Now).Days + " days ago"))
+                </span>
+            </div>
+            <div class="comment-text">
+                <p>@Model.Content</p>
+            </div>
+            <div class="comment-footer">
+                <div class="comment-footer">
+                    <div class="likes">
+                        <div class="like grow like-reaction @(long.TryParse(ViewContext.HttpContext.User.Identity.GetUserId(), out long id) && Model.Reactions.Any(x=>x.UserId == id && x.Liked) ? "active" : "")" data-url="@Url.Action("AddReaction", "Account", new { id = Model.Id, content=nameof(Comments), like=true })">
+                            <i class="fa fa-thumbs-up fa-2x "   aria-hidden="true"></i>
+                            <span class="likes-count">@Model.Reactions.Count(x=>x.Liked)</span>
+                        </div>
+                        <!-- Thumbs down -->
+                        <div class="dislike grow like-reaction @(long.TryParse(ViewContext.HttpContext.User.Identity.GetUserId(), out id) && Model.Reactions.Any(x=>x.UserId == id && !x.Liked) ? "active" : "")" data-url="@Url.Action("AddReaction", "Account", new { id = Model.Id, content=nameof(Comments), like=false })">
+                            <i class="fa fa-thumbs-down fa-2x"   aria-hidden="true"></i>
+                            <span class="dislikes-count">@Model.Reactions.Count(x=>!x.Liked)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>

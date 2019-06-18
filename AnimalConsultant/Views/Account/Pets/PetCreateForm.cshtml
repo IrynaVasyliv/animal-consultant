@@ -1,0 +1,76 @@
+﻿@using AnimalConsultant.Services.Models
+@using DemOffice.GenericCrud.DataAccess
+@using DemOffice.GenericCrud.Services
+@model Pets
+@inject IGenericService<AnimalTypes, AnimalTypes, object> animalTypeService;
+@{
+    var animals = (await animalTypeService.ReadList(new GetManyOptions<object>())).Data;
+}
+
+<form asp-controller="Account" asp-action="AddPet" method="post" novalidate="novalidate" enctype="multipart/form-data">
+    <div class="range range-sm-bottom spacing-20">
+        <div class="cell-sm-6">
+            <div class="form-group">
+                <input class="form-control form-control-has-validation" id="first-name" type="text" name="name" data-constraints="@@Required"><span class="form-validation"></span>
+                <label class="form-label rd-input-label" for="first-name">Pet name</label>
+            </div>
+        </div>
+        <div class="cell-sm-6">
+            <div class="form-group">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>Pet type</span>
+                    </button>
+                    <input asp-for="AnimalTypeId" class="input-hidden" hidden>
+                    <ul class="dropdown-menu w-100 text-center" aria-labelledby="dLabel">
+                        @foreach (var animal in animals)
+                        {
+                            <li class="dropdown-item" data-value="@animal.Id">@animal.Description</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="cell-sm-6">
+            <div class="form-group">
+                <input class="form-control form-control-has-validation " id="breed" type="text" name="breed"><span class="form-validation"></span>
+                <label class="form-label rd-input-label" for="breed">Breed</label>
+            </div>
+        </div>
+        <div class="cell-sm-6">
+            <div class="form-group">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>Gender</span>
+                    </button>
+                    <input class="input-hidden" hidden>
+                    <ul class="dropdown-menu w-100 text-center" aria-labelledby="dLabel">
+                        <li class="dropdown-item" data-value="0">Male</li>
+                        <li class="dropdown-item" data-value="1">Female</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="cell-sm-3">
+            <div class="form-group">
+                <input class="form-control form-control-has-validation " id="weight" type="text" name="weight"><span class="form-validation"></span>
+                <label class="form-label rd-input-label" for="weight">Weight</label>
+            </div>
+        </div>
+        <div class="cell-sm-3">
+            <p>kg</p>
+        </div>
+        <div class="cell-sm-6">
+            <div class="form-group">
+                <div class="input-file-container">
+                    <input class="input-file btn btn-tan-hide" id="my-file" name="image" type="file">
+                    <label tabindex="0" for="my-file" class="input-file-trigger">Select image</label>
+                </div>
+            </div>
+        </div>
+        <div class="cell-xs-12">
+            <button class="btn btn-tan-hide pull-right btn-effect-ujarak" type="submit">Save</button>
+        </div>
+
+    </div>
+</form>

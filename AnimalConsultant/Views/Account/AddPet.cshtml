@@ -1,4 +1,20 @@
-﻿<section class="section-md bg-white">
+﻿@using AnimalConsultant.Services
+@using AnimalConsultant.Services.Models
+@using AnimalConsultant.Services.Models.Filters
+@using DemOffice.GenericCrud.DataAccess
+@using DemOffice.GenericCrud.Services
+@inject IGenericService<Questions, Questions, QuestionFilter> questionService;
+@inject IGenericService<Users, Users, object> userService;
+@inject IUserService specificUserService
+@{
+    var user = (Users)ViewBag.User;
+    var userQuestions = (await questionService.ReadList(new GetManyOptions<QuestionFilter>
+    {
+        Filter = new QuestionFilter() { UserId = user.Id }
+    })).Data;
+    var pets = user.Pets;
+}
+<section class="section-md bg-white">
     <div class="shell shell-wide">
         <div class="range">
 
@@ -58,130 +74,10 @@
                                 </form>
                             </div>
                             <div class="tab-pane fade active show in" id="tabs-1-2">
-                                <form asp-controller="Account" asp-action="AddPet" method="post" novalidate="novalidate">
-                                    <div class="range range-sm-bottom spacing-20">
-                                        <div class="cell-sm-6">
-                                            <div class="form-group">
-                                                <input class="form-control form-control-has-validation" id="first-name" type="text" name="name" data-constraints="@@Required"><span class="form-validation"></span>
-                                                <label class="form-label rd-input-label" for="first-name">Pet name</label>
-                                            </div>
-                                        </div>
-                                        <div class="cell-sm-6">
-                                            <div class="form-group">
-                                                <div class="dropdown">
-                                                    <button class="btn btn-default dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span>Pet type</span>
-                                                    </button>
-                                                    <input class="input-hidden" hidden>
-                                                    <ul class="dropdown-menu w-100 text-center" aria-labelledby="dLabel">
-                                                        <li class="dropdown-item" data-value="0">Dog</li>
-                                                        <li class="dropdown-item" data-value="1">Cat</li>
-                                                        <li class="dropdown-item" data-value="2">Farm animal</li>
-                                                        <li class="dropdown-item" data-value="3">Reptile</li>
-                                                        <li class="dropdown-item" data-value="4">Exotic</li>
-                                                        <li class="dropdown-item" data-value="5">Bird</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="cell-sm-6">
-                                            <div class="form-group">
-                                                <input class="form-control form-control-has-validation " id="breed" type="text" name="breed"><span class="form-validation"></span>
-                                                <label class="form-label rd-input-label" for="breed">Breed</label>
-                                            </div>
-                                        </div>
-                                        <div class="cell-sm-6">
-                                            <div class="form-group">
-                                                <div class="dropdown">
-                                                    <button class="btn btn-default dropdown-toggle btn-block" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <span>Gender</span>
-                                                    </button>
-                                                    <input class="input-hidden" hidden>
-                                                    <ul class="dropdown-menu w-100 text-center" aria-labelledby="dLabel">
-                                                        <li class="dropdown-item" data-value="0">Male</li>
-                                                        <li class="dropdown-item" data-value="1">Female</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="cell-sm-3">
-                                            <div class="form-group">
-                                                <input class="form-control form-control-has-validation " id="weight" type="text" name="weight"><span class="form-validation"></span>
-                                                <label class="form-label rd-input-label" for="weight">Weight</label>
-                                            </div>
-                                        </div>
-                                        <div class="cell-sm-3">
-                                            <p>kg</p>
-                                        </div>
-                                        <div class="cell-sm-6">
-                                            <div class="form-group">
-                                                <div class="input-file-container">
-                                                    <input class="input-file btn btn-tan-hide" id="my-file" type="file">
-                                                    <label tabindex="0" for="my-file" class="input-file-trigger">Select image</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="cell-xs-12">
-                                            <button class="btn btn-tan-hide pull-right btn-effect-ujarak" type="submit">Save</button>
-                                        </div>
-
-                                    </div>
-                                </form>
+                                @Html.Partial("Pets/PetCreateForm")
                             </div>
                             <div class="tab-pane fade" id="tabs-1-3">
-                                <div class="tab-questions text-center">
-                                    <a href="#" style="width: 100%; margin-top: 10px">
-                                        <blockquote class="quote-classic">
-                                            <div class="quote-classic-body">
-                                                <div class="quote-classic-header">
-                                                    <cite>Question question question question</cite>
-                                                    <p class="caption">answered by Levis Jordan</p>
-                                                </div>
-                                                <p class="quote-classic-text">
-                                                    <q>Delta is one of the most energetic and cheerful dogs I ever had! Thank you, Animal Shelter, for making my life more positive and happier!</q>
-                                                </p>
-                                                <div class="quote-classic-meta">
-                                                    <ul class="post-meta">
-                                                        <li>
-                                                            <span class="icon icon-sm icon-tan-hide material-icons-access_time"></span>
-                                                            <time datetime="2016-01-01">19 April 2016</time>
-                                                        </li>
-                                                        <li><span class="icon icon-sm icon icon-tan-hide fa fa-thumbs-up"></span><span>23</span></li>
-                                                        <li><span class="icon icon-sm icon-tan-hide fa fa-comment-o"></span><span>6</span></li>
-                                                    </ul>
-                                                    <ul class="post-meta pull-right">
-                                                        <li><span class="big text-blue-marguerite pull-right">Cats</span></li>
-                                                        <li><span class="big text-blue-marguerite pull-right">Health</span></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </blockquote>
-                                    </a>
-                                    <a href="#" style="width: 100%; margin-top: 10px">
-                                        <blockquote class="quote-classic">
-                                            <div class="quote-classic-body">
-                                                <div class="quote-classic-header">
-                                                    <cite>Question question question question</cite>
-                                                    <p class="caption">no answer yet</p>
-                                                </div>
-                                                <div class="quote-classic-meta">
-                                                    <ul class="post-meta">
-                                                        <li>
-                                                            <span class="icon icon-sm icon-tan-hide material-icons-access_time"></span>
-                                                            <time datetime="2016-01-01">19 April 2016</time>
-                                                        </li>
-                                                        <li><span class="icon icon-sm icon-tan-hide fa fa-thumbs-up"></span><span>23</span></li>
-                                                        <li><span class="icon icon-sm icon-tan-hide fa fa-comment-o"></span><span>6</span></li>
-                                                    </ul>
-                                                    <ul class="post-meta pull-right">
-                                                        <li><span class="big text-blue-marguerite pull-right">Cats</span></li>
-                                                        <li><span class="big text-blue-marguerite pull-right">Health</span></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </blockquote>
-                                    </a>
-                                </div>
+                                @Html.Partial("Question/QuestionsList", userQuestions)
                             </div>
                             <div class="tab-pane fade" id="tabs-1-4">
                                 <p>Welcome to our wonderful world. We sincerely hope that each and every user entering our website will find exactly what he/she is looking for. With advanced features of activating account and new login widgets, you will definitely have a great experience of using our web page. It will tell you lots of interesting things about our company, its products and services, highly professional staff and happy customers. Our site design and navigation has been thoroughly thought out. The layout is aesthetically appealing, contains concise texts in order not to take your precious time. Text styling allows scanning the pages quickly.</p>

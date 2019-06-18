@@ -8,7 +8,11 @@ using AnimalConsultant.DAL.Models.Identity;
 using AnimalConsultant.Generic;
 using AnimalConsultant.Services;
 using AutoMapper;
+using DemOffice.Email;
+using DemOffice.Email.EmailService;
 using DemOffice.GenericCrud;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -44,6 +48,11 @@ namespace AnimalConsultant
 
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
+
+            var smtpOptions = Configuration
+                .GetSection("EmailOptions")
+                .Get<SmtpOptions>();
+
             AnimalConsultantDbProvider.ConnectionString = connection;
 
             services.AddDbContext<AnimalConsultantDbContext>(options =>
@@ -59,10 +68,25 @@ namespace AnimalConsultant
                     opt.Setup = GenericEntitiesSetup.Mappings;
                 });
 
+            services.AddEmailService(EmailServiceProviders.Smtp, smtpOptions);
+
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<AnimalConsultantDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.ConfigureApplicationCookie(options => {
+
+                options.Events = new Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents
+                {
+                    OnRedirectToLogin = ctx =>
+                    {
+                            ctx.Response.Redirect("/login");
+
+                        return Task.CompletedTask;
+                    }
+                };
+
+            });
 
             services.AddTransient<IUserService, UserService>();
 
@@ -72,8 +96,6 @@ namespace AnimalConsultant
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
-
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,7 +112,9 @@ namespace AnimalConsultant
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+
+            app.UseAuthentication();
+         app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
@@ -99,8 +123,6 @@ namespace AnimalConsultant
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
-
-            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

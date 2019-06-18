@@ -8,6 +8,7 @@
     var pets = user.Pets;
     var categories = (await CategoryService.ReadList(new GetManyOptions<object>())).Data;
 }
+
 <form asp-controller="Account" asp-action="AddQuestion" method="post" novalidate="novalidate" id="create-question" enctype="multipart/form-data">
     <div class="range range-sm-bottom spacing-20">
         <div class="cell-sm-12">
@@ -22,7 +23,8 @@
         </div>
         <div class="cell-sm-12">
             <div class="form-group">
-                <textarea class="form-control form-control-has-validation" asp-for="Content" name="message" data-constraints="@@Required"></textarea><span class="form-validation"></span>
+                <textarea class="form-control form-control-has-validation" id="comment-message" asp-for="Content" data-constraints="@@Required"></textarea>
+                <span class="form-validation"></span>
                 <label class="form-label rd-input-label" for="comment-message">Message</label>
             </div>
         </div>

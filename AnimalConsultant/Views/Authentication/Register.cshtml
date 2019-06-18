@@ -8,7 +8,7 @@
                 <div class="cell-sm-10 cell-md-10 cell-lg-12">
                     <h4>Register</h4>
                     <!-- RD Mailform-->
-                    <form asp-controller="Account" asp-action="PostRegister"  class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" novalidate="novalidate">
+                    <form asp-controller="Authentication" asp-action="PostRegister"  class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" novalidate="novalidate">
                         <div class="range range-sm-bottom spacing-20">
                             <div class="cell-sm-3">
                                 <div class="form-group">
@@ -64,27 +64,6 @@
         </div>
 
         <div class="shell">
-            <h3>Маленьке опитування</h3>
-            <p class="big text-width-medium">
-                Пройдіть маленьке опитування для того, щоб підібрати вам потрібну тваринку.
-
-            </p>
-            <div class="range range-lg-justify spacing-55 justify-content-center">
-                <div class="cell-sm-9 align-content-center">
-                    <h4>Питання</h4>
-
-                    <div class="cell-xs-12">
-                        <label class="radio-inline">
-                            <input type="radio" name="radio-1" checked="" class="radio-custom"><span class="radio-custom-dummy"></span>Yes, I would like to stay informed about Animal Shelter’s work
-                        </label>
-                    </div>
-
-                    <div class="cell-xs-12">
-                        <label class="radio-inline">
-                            <input type="radio" name="radio-1" class="radio-custom"><span class="radio-custom-dummy"></span>Yes, I would like to stay informed about Animal Shelter’s work
-                        </label>
-                    </div>
-                </div>
 
                 @*<div class="cell-md-6">
                         <ul class="list-bars">

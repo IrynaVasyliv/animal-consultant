@@ -28,7 +28,7 @@
                         </ul>
                         <!-- Tab panes-->
                         <div class="tab-content">
-                            <div class="tab-pane fade  @(ViewBag.ActiveTab == null || ViewBag.ActiveTab == 1 ? "in active show" : "")" id="tabs-1-1">
+                            <div class="tab-pane fade" id="tabs-1-1">
                                 <form asp-controller="Account" asp-action="UpdateAccount" class="rd-mailform" data-form-output="form-output-global" data-form-type="contact" method="post" novalidate="novalidate">
                                     <div class="range range-sm-bottom spacing-20">
                                         <div class="cell-sm-3">
@@ -70,13 +70,13 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="tab-pane fade  @(ViewBag.ActiveTab == 2 ? "in active show" : "")" id="tabs-1-2">
+                            <div class="tab-pane fade" id="tabs-1-2">
                                 @Html.Partial("Pets/Pets", pets)
                             </div>
-                            <div class="tab-pane fade @(ViewBag.ActiveTab == 3 ? "in active show" : "")" id="tabs-1-3">
+                            <div class="tab-pane fade" id="tabs-1-3">
                                @Html.Partial("Question/QuestionsList", userQuestions)
                             </div>
-                            <div class="tab-pane fade @(ViewBag.ActiveTab == 5 ? "in active show" : "")" id="tabs-1-5">
+                            <div class="tab-pane fade" id="tabs-1-5">
                                 <div class="comment-group">
                                     <!-- Comment-->
                                     <article class="comment">
@@ -207,14 +207,14 @@
                         <div class="unit unit-xs-horizontal">
                             <div class="unit-left">
                                 <div class="quote-circle-image">
-                                    <img class="file-input-replace" src="~/img/home1-6-280x320.jpg" alt="" width="280" height="320" style="min-height: 101%; min-width: 101%">
+                                    <img class="file-input-replace" src="~/img/@(user.Image ?? "grey-paw-print-hi.png")" alt="" width="100" height="320" style="min-height: 101%; min-width: 101%">
                                 </div>
                             </div>
                             <div class="unit-body">
                                 <div class="quote-circle-body">
                                     <div class="quote-circle-header">
-                                        <cite class="name">Karen</cite>
-                                        <cite class="lastname">Karen</cite>
+                                        <cite class="name">@user.FirstName</cite>
+                                        <cite class="lastname">@user.LastName</cite>
                                     </div>
                                     <p class="quote-circle-text">
                                         <q>When I saw her picture on the site, I knew she had found her home.  She is a non-shedding bundle of cuteness  affectionately known as ‘Lex”.</q>
@@ -222,7 +222,7 @@
                                     <div class="quote-circle-meta">
                                         <ul class="quote-circle-meta-list">
                                             <li class="object-inline"><span class="icon icon-sm icon-primary-filled icon-circle mdi mdi-thumb-up-outline"></span><span class="phone">+38 (063) 9661289</span></li>
-                                            <li><span>February 16, 2016</span></li>
+                                            <li><span>@user.Email</span></li>
                                         </ul>
                                     </div>
                                 </div>

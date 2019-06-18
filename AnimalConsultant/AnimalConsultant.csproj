@@ -7,6 +7,7 @@
 
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Identity.Core" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
@@ -15,6 +16,7 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DemOffice-API\DemOffice.Email\DemOffice.Email.csproj" />
     <ProjectReference Include="..\AnimalConsultant.DAL\AnimalConsultant.DAL.csproj" />
     <ProjectReference Include="..\AnimalConsultant.Services\AnimalConsultant.Services.csproj" />
     <ProjectReference Include="..\DemOffice.GenericCrud\DemOffice.GenericCrud.csproj" />

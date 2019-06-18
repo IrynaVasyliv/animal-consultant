@@ -40744,7 +40744,7 @@ a.pswp__share--download:hover {
     .select2-container--bootstrap .select2-selection--single {
         text-align: left;
         height: 50px;
-        line-height: 50px;
+        line-height: 20px;
         padding: 0 30px 0 20px
     }
 
@@ -40782,13 +40782,14 @@ a.pswp__share--download:hover {
         }
 
     .select2-container--bootstrap .select2-selection--multiple {
-        min-height: 50px
+        min-height: 50px;
+        margin-top: 20px;
     }
 
         .select2-container--bootstrap .select2-selection--multiple .select2-selection__rendered {
             box-sizing: border-box;
             display: block;
-            line-height: 24;
+            line-height: 3;
             list-style: none;
             margin: 0;
             overflow: hidden;
@@ -40819,7 +40820,7 @@ a.pswp__share--download:hover {
             background: 0 0;
             padding: 0 42px;
             height: 48px;
-            line-height: 24;
+            line-height: 3;
             margin-top: 0;
             min-width: 5em
         }

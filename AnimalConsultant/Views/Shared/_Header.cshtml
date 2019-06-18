@@ -25,9 +25,11 @@
                     </ul>
                     @if (ViewContext.HttpContext.User.Identity.IsAuthenticated)
                     {
-                        <div class="object-inline">
-                            <a class="link link-md link-white" href="/account">My Account</a>
-                        </div>
+                    <div class="object-inline">
+                        <a class="link link-md link-white" href="/account">My Account</a>
+                        <p>/</p>
+                        <a class="link link-md link-white" href="/logout">Logout</a>
+                    </div>
                     }
                     else
                     {

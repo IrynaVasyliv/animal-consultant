@@ -31,5 +31,20 @@ namespace AnimalConsultant.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult Quiz()
+        {
+            return View();
+        }
+
+        public IActionResult GetQuizQuestion(int index)
+        {
+            if (index == 5)
+            {
+                return PartialView("~/Views/Partials/QuizResult.cshtml");
+            }
+
+            return PartialView("~/Views/Partials/QuizQuestion.cshtml");
+        }
     }
 }
