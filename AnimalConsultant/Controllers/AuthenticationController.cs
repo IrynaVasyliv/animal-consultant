@@ -36,7 +36,9 @@ namespace AnimalConsultant.Controllers
                 var message = System.IO.File.ReadAllText("SendEmail.html");
                 _emailService.Send(user.Email, message, "Become the Animal Shelter expert", true, sender: "animalshelter@gmail.com");
 
-                return Ok();
+                var result2 = await _userService.PasswordSignInUserAsync(user.Email, user.Password, true, true);
+                if (result2.Succeeded)
+                    return RedirectToAction("Index", "Account");
             }
 
             return BadRequest(string.Join(string.Empty, result.Errors));

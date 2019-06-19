@@ -37,7 +37,7 @@
                                         <cite>@question.Content</cite>
                                     </a>
                                     @{
-                                        var answer = question.Comments.Where(x => x.User.Role == nameof(Roles.Vet)).OrderBy(x => x.Rating).LastOrDefault();
+                                        var answer = question.Comments.Where(x => x.User.Role == nameof(Roles.Vet).ToLower()).OrderBy(x => x.Rating).ThenByDescending(x => x.CreateDate).LastOrDefault();
                                     }
                                     <p class="caption"> @(answer == null ? "no answer" : $"answered by { answer.User.FirstName } {answer.User.LastName}")</p>
                                 </div>

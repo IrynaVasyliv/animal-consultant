@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="Empeek.Styleguide.Dotnet" Version="0.0.133" />
   </ItemGroup>
 
   <ItemGroup>

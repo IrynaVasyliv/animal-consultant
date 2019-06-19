@@ -115,10 +115,9 @@ namespace AnimalConsultant.Generic
                 {
                     nameof(D.User.IncomingRatings)
                 },
-                mappingOverride:x=>x
+                mappingOverride:x => x
                     .ReverseMap()
-                    .ForMember(dest=>dest.Role, opt=>opt.Ignore())
-                    .ForMember(dest=>dest.Password, opt=>opt.Ignore())),
+                    .ForMember(dest => dest.Password, opt=>opt.Ignore())),
         };
     }
 }

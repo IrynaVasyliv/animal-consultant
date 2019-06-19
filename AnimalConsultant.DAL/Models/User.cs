@@ -12,6 +12,7 @@ namespace AnimalConsultant.DAL.Models
         public double Rating { get; set; }
         public string Image { get; set; }
         public string AboutMe { get; set; }
+        public string Role { get; set; }
 
         public ICollection<Question> Questions { get; set; }
         public ICollection<Comment> Comments { get; set; }
